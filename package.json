@@ -4,7 +4,7 @@
   "description": "An etherspot UI package",
   "main": "index.js",
   "scripts": {
-    "test": "jest __tests__ "
+    "test": "jest __tests__ --silent"
   },
   "keywords": [],
   "author": "Etherspot Team",
@@ -18,7 +18,7 @@
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-react": "^7.23.3",
-    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.1.2",
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
