@@ -20,10 +20,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+import React, { FC } from 'react';
 
-import React from 'react';
+interface TestModuleProps {
+  // Define your prop types here
+}
 
-const TestModule = () => {
+const TestModule: FC<TestModuleProps> = () => {
   return <div>Hello Etherspot UI</div>;
 };
 
