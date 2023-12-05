@@ -4,6 +4,5 @@
 
 ### Added
 - added package.json and updated dependancies in it.
-- added contributing , changelog, jest config, security, rollup config, ts config
-
+- added contributing, changelog, jest config, security, rollup config, ts config
 
