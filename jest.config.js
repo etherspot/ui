@@ -7,7 +7,7 @@
   }; */
   module.exports = {
     testEnvironment: 'jsdom',
-    moduleFileExtensions: ['js', 'jsx', 'json', 'node'],
+    moduleFileExtensions: ['js', 'jsx', 'json', 'node','tsx'],
     setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
    
     // ...other configurations

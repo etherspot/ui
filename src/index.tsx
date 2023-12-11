@@ -31,3 +31,5 @@ const TestModule: FC<TestModuleProps> = () => {
 };
 
 export default TestModule;
+export { default as SendNativeToken } from './components/SendNativeToken';
+
