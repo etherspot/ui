@@ -1,4 +1,4 @@
-import React, { useState, KeyboardEvent } from 'react';
+import React, { useState, KeyboardEvent, useEffect } from 'react';
 import {
   EtherspotTransactionKit,
   EtherspotBatches,
@@ -9,6 +9,7 @@ import { Input } from 'baseui/input';
 import { useStyletron } from 'baseui';
 import { StyleObject } from 'styletron-react';
 import { ethers } from "ethers";
+import { isValidEthereumAddress } from '../../utils/validation';
 
 
 interface SendNativeTokenProps {
@@ -17,6 +18,7 @@ interface SendNativeTokenProps {
   style?: StyleObject;
   unstyled?: boolean;
   debug?: boolean;
+  triggerElement?: string;
   disableSendOnEnter?: boolean;
   onlyEstimate?: boolean;
 }
@@ -27,15 +29,32 @@ const SendNativeToken = ({
   style,
   unstyled = false,
   debug = false,
+  triggerElement,
   disableSendOnEnter = false,
   onlyEstimate = false,
 }: SendNativeTokenProps) => {
 
   const [value, setValue] = useState('0.001');
+  const [error, setError] = useState('');
   const [css] = useStyletron();
   const etherspotAddresses = '0x89a3d6AF00a3627DA25E2e8FFCCb97FE74D52631';
   const randomWallet = ethers.Wallet.createRandom();
   const providerWallet = new ethers.Wallet(randomWallet.privateKey);
+
+  useEffect(() => {
+    // Add event listener to trigger element
+    const element = document.querySelector(triggerElement || ''); 
+    if (element) {
+      element.addEventListener('click', estimateAndSend);
+    }
+
+    return () => {
+      // Remove event listener on component unmount
+      if (element) {
+        element.removeEventListener('click', estimateAndSend);
+      }
+    };
+  }, [triggerElement]);
 
   const handleEnterPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (!disableSendOnEnter && event.key === 'Enter') {
@@ -44,12 +63,16 @@ const SendNativeToken = ({
     }
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleReceiverAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if(isValidEthereumAddress(event.target.value)){  
       setValue(event.target.value);
+    }else{
+      setError('Please enter valid address');
+    }
   };
 
-  const sendButtonHandler = () => {
-    // Trigger sending logic here
+  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
   };
 
   const estimateAndSend = async () => {
@@ -59,6 +82,10 @@ const SendNativeToken = ({
     if (!onlyEstimate) {
       // send logic here 
     }
+  };
+  const estimate = async () => {
+    // Logic to estimate native token using TransactionKit
+    
   };
 
   const transactionKitProps = {
@@ -70,7 +97,6 @@ const SendNativeToken = ({
   };
 
   return (
-    
     <div className={css(style)}>
       <h1> Send Native Token</h1>
       <p>{etherspotAddresses}</p>
@@ -80,28 +106,29 @@ const SendNativeToken = ({
           <EtherspotTransaction to={transactionKitProps.to} value={transactionKitProps.value}>
           <Input
             value={receiverAddress}
-            onChange={handleInputChange}
-            onKeyDown={handleEnterPress}
+            onChange={handleReceiverAddressChange}
             placeholder="Enter receiver address"
             overrides={unstyled ? {} : undefined}
           />
+          {error ? <div>{error}</div> : ''}
           <Input
             value={value}
-            onChange={handleInputChange}
+            onChange={handleAmountChange}
             onKeyDown={handleEnterPress}
             placeholder="Enter amount value"
             overrides={unstyled ? {} : undefined}
           />
           {!unstyled && (
-            <button onClick={sendButtonHandler} disabled={onlyEstimate}>
-              Send
+            <button onClick={onlyEstimate ? estimate : estimateAndSend} > 
+              {onlyEstimate ? 'Estimate' : 'Send'}
             </button>
+           
           )}
       </EtherspotTransaction>
     </EtherspotBatch>
   </EtherspotBatches>
   </EtherspotTransactionKit>
-    </div>
+  </div>
     
   );
 };

@@ -14,6 +14,7 @@ const App = () => {
         style={{ margin: '10px' }} 
         unstyled={false} 
         debug={true}
+        triggerElement='.send'
         disableSendOnEnter={false}
         onlyEstimate={false}
       />
