@@ -5,17 +5,17 @@ import {
   EtherspotBatch,
   EtherspotTransaction,
 } from "@etherspot/transaction-kit";
-import { Input } from 'baseui/input';
-import { useStyletron } from 'baseui';
-import { StyleObject } from 'styletron-react';
 import { ethers } from "ethers";
 import { isValidEthereumAddress } from '../../utils/validation';
+
+
+
 
 
 interface SendNativeTokenProps {
   receiverAddress: string;
   chain: number;
-  style?: StyleObject;
+  style?: React.CSSProperties;
   unstyled?: boolean;
   debug?: boolean;
   triggerElement?: string;
@@ -36,7 +36,6 @@ const SendNativeToken = ({
 
   const [value, setValue] = useState('0.001');
   const [error, setError] = useState('');
-  const [css] = useStyletron();
   const etherspotAddresses = '0x89a3d6AF00a3627DA25E2e8FFCCb97FE74D52631';
   const randomWallet = ethers.Wallet.createRandom();
   const providerWallet = new ethers.Wallet(randomWallet.privateKey);
@@ -97,21 +96,21 @@ const SendNativeToken = ({
   };
 
   return (
-    <div className={css(style)}>
+    <div className='bg-gray-200 h-auto'>
       <h1> Send Native Token</h1>
       <p>{etherspotAddresses}</p>
       <EtherspotTransactionKit provider={transactionKitProps.provider} chainId={transactionKitProps.chainId}>
       <EtherspotBatches via={"etherspot-prime"}>
         <EtherspotBatch>
           <EtherspotTransaction to={transactionKitProps.to} value={transactionKitProps.value}>
-          <Input
+          <input
             value={receiverAddress}
             onChange={handleReceiverAddressChange}
             placeholder="Enter receiver address"
             overrides={unstyled ? {} : undefined}
           />
           {error ? <div>{error}</div> : ''}
-          <Input
+          <input
             value={value}
             onChange={handleAmountChange}
             onKeyDown={handleEnterPress}
@@ -119,7 +118,7 @@ const SendNativeToken = ({
             overrides={unstyled ? {} : undefined}
           />
           {!unstyled && (
-            <button onClick={onlyEstimate ? estimate : estimateAndSend} > 
+            <button onClick={onlyEstimate ? estimate : estimateAndSend} className="border-2 ml-24" > 
               {onlyEstimate ? 'Estimate' : 'Send'}
             </button>
            

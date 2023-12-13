@@ -39,6 +39,20 @@ export default [
       resolve({
         browser: true,
       }),
+      postcss({
+        extract: 'styles.css', // Adjust the output CSS file name as needed
+        modules: true,
+        minimize: true,
+        sourceMap: true,
+        config: {
+          path: './postcss.config.js'
+        },
+        plugins: [
+          require('tailwindcss'),
+          require('autoprefixer'),
+          // Add other PostCSS plugins as needed
+        ],
+      }),
       commonjs(),
       typescript({
         sourceMap: !isProduction,
@@ -50,12 +64,6 @@ export default [
         preventAssignment: true,
         __ETHERSPOT_BUILDER_VERSION__: packageJson.version,
         __ETHERSPOT_SDK_VERSION__: packageJson.dependencies.etherspot,
-      }),
-      postcss({
-        plugins: [autoprefixer()],
-        sourceMap: true,
-        extract: true,
-        minimize: true,
       }),
       process.env.NODE_ENV === 'production' && terser(),
     ],
@@ -78,6 +86,7 @@ export default [
       'styled-components',
       'etherspot',
       '@etherspot/transaction-kit',
+      '[/\.css$/, /\.scss$/]'
     ],
     watch: {
       clearScreen: false,
