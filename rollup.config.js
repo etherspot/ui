@@ -6,7 +6,6 @@ import dts from 'rollup-plugin-dts';
 import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import dotenv from 'dotenv';
-import autoprefixer from 'autoprefixer';
 import postcss from 'rollup-plugin-postcss';
 
 dotenv.config();
@@ -39,25 +38,22 @@ export default [
       resolve({
         browser: true,
       }),
-      postcss({
-        extract: 'styles.css', // Adjust the output CSS file name as needed
-        modules: true,
-        minimize: true,
-        sourceMap: true,
-        config: {
-          path: './postcss.config.js'
-        },
-        plugins: [
-          require('tailwindcss'),
-          require('autoprefixer'),
-          // Add other PostCSS plugins as needed
-        ],
-      }),
       commonjs(),
       typescript({
         sourceMap: !isProduction,
         tsconfig: './tsconfig.json',
         exclude: ['./example/**', './src/test/**'],
+      }),
+      postcss({
+        config: {
+          path: ['./postcss.config.css']
+        },
+        extract: 'dist/style.css',
+        minimize: true,
+        module: false,
+        inject: {
+          insertAt: 'top',
+        },
       }),
       replace({
         __ETHERSPOT_PROJECT_KEY__: process.env.ETHERSPOT_PROJECT_KEY ?? '',
@@ -74,6 +70,7 @@ export default [
       'etherspot',
       '@etherspot/prime-sdk',
       '@etherspot/transaction-kit',
+      '/\.css$/',
     ],
   },
   {
@@ -86,7 +83,7 @@ export default [
       'styled-components',
       'etherspot',
       '@etherspot/transaction-kit',
-      '[/\.css$/, /\.scss$/]'
+      '/\.css$/'
     ],
     watch: {
       clearScreen: false,

@@ -31,5 +31,6 @@ const TestModule: FC<TestModuleProps> = () => {
 };
 
 export default TestModule;
-export { default as SendNativeToken } from './components/SendNativeToken';
+//export { default as SendNativeToken } from './components/SendNativeToken';
+export { default as Button } from './components/Button/Button';
 
