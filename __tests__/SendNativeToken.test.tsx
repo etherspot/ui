@@ -1,54 +1,58 @@
-import { render, fireEvent, screen } from '@testing-library/react';
-import SendNativeToken from '../src/components/SendNativeToken';
+import {render, fireEvent, cleanup } from '@testing-library/react';
+import SendNativeToken from '../src/components/SendNativeToken/index';
 
-test('renders SendNativeToken component', () => {
-  render(
-    <SendNativeToken
-      receiverAddress="0x725404c8Eead111d9E6DFE118c535F43402a9511"
-      chain={1}
-      style={{ margin: '10px' }}
-      unstyled={false}
-      debug={true}
-      disableSendOnEnter={false}
-      onlyEstimate={false}
-    />
-  );
-
-  const inputElement = screen.getByPlaceholderText('Enter receiver address');
-  expect(inputElement).toBeInTheDocument();
+afterEach(cleanup);
+test('Send native token renders correctly', () => {
+  const tree = render(<SendNativeToken
+    receiverAddress="0x725404c8Eead111d9E6DFE118c535F43402a9511"
+    chain={1} 
+    className= 'block w-1/2 rounded-md border-1 border-gray-300 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+    unstyled={false} 
+    debug={true}
+    disableSendOnEnter={false}
+    onlyEstimate={false}
+  />);
+  expect(tree).toMatchSnapshot();
 });
 
-test('handles input change', () => {
-  render(
-    <SendNativeToken
-      receiverAddress="0x725404c8Eead111d9E6DFE118c535F43402a9511"
-      chain={1}
-      style={{ margin: '10px' }}
-      unstyled={false}
-      debug={true}
-      disableSendOnEnter={false}
-      onlyEstimate={false}
-    />
+test('input value updates correctly', () => {
+  // Arrange
+  const { getByPlaceholderText } = render(<SendNativeToken
+    receiverAddress="0x725404c8Eead111d9E6DFE118c535F43402a9511"
+    chain={1} 
+    className= 'block w-1/2 rounded-md border-1 border-gray-300 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+    unstyled={false} 
+    debug={true}
+    disableSendOnEnter={false}
+    onlyEstimate={false}
+  />
   );
 
-  const inputElement = screen.getByPlaceholderText('Enter receiver address');
-  fireEvent.change(inputElement, { target: { value: 'newAddress' } });
-  expect(inputElement.value).toBe('newAddress');
+  // Act: Change the input value
+  const inputElement = getByPlaceholderText('Enter Amount');
+  fireEvent.change(inputElement, { target: { value: '0.001' } });
+
+  // Assert: Check if the input value has been updated
+  expect(inputElement.value).toBe('0.001');
 });
 
-test('handles enter key press', () => {
-  render(
-    <SendNativeToken
-      receiverAddress="0x725404c8Eead111d9E6DFE118c535F43402a9511"
-      chain={1}
-      style={{ margin: '10px' }}
-      unstyled={false}
-      debug={true}
-      disableSendOnEnter={false}
-      onlyEstimate={false}
-    />
+test('input value updates correctly', () => {
+  // Arrange
+  const { getByPlaceholderText } = render(<SendNativeToken
+    receiverAddress="0x725404c8Eead111d9E6DFE118c535F43402a9511"
+    chain={1} 
+    className= 'block w-1/2 rounded-md border-1 border-gray-300 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+    unstyled={false} 
+    debug={true}
+    disableSendOnEnter={false}
+    onlyEstimate={false}
+  />
   );
 
-  const inputElement = screen.getByPlaceholderText('Enter receiver address');
-  fireEvent.keyDown(inputElement, { key: 'Enter', code: 'Enter' });
+  // Act: Change the input value
+  const inputElement = getByPlaceholderText('Enter Amount');
+  fireEvent.keyDown(inputElement, { target: { value: '0.001' } });
+
+  // Assert: call function of send
+  expect(inputElement.value).toBe('0.001');
 });

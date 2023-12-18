@@ -20,17 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import React, { FC } from 'react';
+import './index.css';
 
-interface TestModuleProps {
-  // Define your prop types here
-}
-
-const TestModule: FC<TestModuleProps> = () => {
-  return <div>Hello Etherspot UI</div>;
-};
-
-export default TestModule;
-//export { default as SendNativeToken } from './components/SendNativeToken';
-export { default as Button } from './components/Button/Button';
+export { default as SendNativeToken } from './components/SendNativeToken';
 

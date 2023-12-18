@@ -9,16 +9,14 @@ import { ethers } from "ethers";
 import { isValidEthereumAddress } from '../../utils/validation';
 
 
-
-
-
 interface SendNativeTokenProps {
   receiverAddress: string;
   chain: number;
+  className?: string;
   style?: React.CSSProperties;
   unstyled?: boolean;
   debug?: boolean;
-  triggerElement?: string;
+  triggerElement?: React.ReactNode | React.RefObject<HTMLElement>;
   disableSendOnEnter?: boolean;
   onlyEstimate?: boolean;
 }
@@ -26,6 +24,7 @@ interface SendNativeTokenProps {
 const SendNativeToken = ({
   receiverAddress,
   chain,
+  className,
   style,
   unstyled = false,
   debug = false,
@@ -34,27 +33,37 @@ const SendNativeToken = ({
   onlyEstimate = false,
 }: SendNativeTokenProps) => {
 
-  const [value, setValue] = useState('0.001');
+  const [amount, setAmount] = useState('0.001');
+  const [isValidAddress, setIsValidAddress] = useState(true);
   const [error, setError] = useState('');
-  const etherspotAddresses = '0x89a3d6AF00a3627DA25E2e8FFCCb97FE74D52631';
   const randomWallet = ethers.Wallet.createRandom();
   const providerWallet = new ethers.Wallet(randomWallet.privateKey);
 
   useEffect(() => {
-    // Add event listener to trigger element
-    const element = document.querySelector(triggerElement || ''); 
-    if (element) {
-      element.addEventListener('click', estimateAndSend);
+    // Add event listener for triggerElement click
+    const triggerElementRef = triggerElement as React.MutableRefObject<HTMLElement> | undefined;
+    if (triggerElementRef && triggerElementRef.current) {
+      triggerElementRef.current.addEventListener('click', estimateAndSend);
     }
 
+    // Cleanup
     return () => {
-      // Remove event listener on component unmount
-      if (element) {
-        element.removeEventListener('click', estimateAndSend);
+      if (triggerElementRef && triggerElementRef.current) {
+        triggerElementRef.current.removeEventListener('click', estimateAndSend);
       }
     };
   }, [triggerElement]);
 
+  useEffect(() => {
+    // validate receiver address
+    if(isValidEthereumAddress(receiverAddress)){  
+      setIsValidAddress(true);
+    }else{
+      setIsValidAddress(false);
+    }
+  }, [receiverAddress]);
+
+  // handle on key press logic of sending 
   const handleEnterPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (!disableSendOnEnter && event.key === 'Enter') {
       // Trigger sending logic here
@@ -62,74 +71,61 @@ const SendNativeToken = ({
     }
   };
 
-  const handleReceiverAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(isValidEthereumAddress(event.target.value)){  
-      setValue(event.target.value);
-    }else{
-      setError('Please enter valid address');
-    }
-  };
-
+  // on change logic
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    setAmount(event.target.value);
   };
 
+  // logic of estimate and send based on props
   const estimateAndSend = async () => {
-    // Logic to estimate and send native token using TransactionKit
-    // You may need to replace the placeholders with actual functions
-   
-    if (!onlyEstimate) {
-      // send logic here 
+    if(isValidAddress){
+
+      // estimate logic
+      
+      if (!onlyEstimate) {
+        // send logic here 
+      }
+      if(debug){
+        console.log('send');
+      }
+    }
+    else{
+      setError('Receiver address is not blockchain address');
     }
   };
-  const estimate = async () => {
-    // Logic to estimate native token using TransactionKit
-    
-  };
-
+  
   const transactionKitProps = {
     provider: providerWallet,
     to: receiverAddress,
     chainId: chain,
-    value: onlyEstimate ? 0 : parseFloat(value),
+    amount: onlyEstimate ? 0 : parseFloat(amount),
     debug,
   };
 
   return (
-    <div className='bg-gray-200 h-auto'>
-      <h1> Send Native Token</h1>
-      <p>{etherspotAddresses}</p>
-      <EtherspotTransactionKit provider={transactionKitProps.provider} chainId={transactionKitProps.chainId}>
-      <EtherspotBatches via={"etherspot-prime"}>
+
+    <EtherspotTransactionKit provider={transactionKitProps.provider} chainId={transactionKitProps.chainId}>
+      <EtherspotBatches>
         <EtherspotBatch>
-          <EtherspotTransaction to={transactionKitProps.to} value={transactionKitProps.value}>
-          <input
-            value={receiverAddress}
-            onChange={handleReceiverAddressChange}
-            placeholder="Enter receiver address"
-            overrides={unstyled ? {} : undefined}
-          />
-          {error ? <div>{error}</div> : ''}
-          <input
-            value={value}
-            onChange={handleAmountChange}
-            onKeyDown={handleEnterPress}
-            placeholder="Enter amount value"
-            overrides={unstyled ? {} : undefined}
-          />
-          {!unstyled && (
-            <button onClick={onlyEstimate ? estimate : estimateAndSend} className="border-2 ml-24" > 
-              {onlyEstimate ? 'Estimate' : 'Send'}
-            </button>
-           
-          )}
-      </EtherspotTransaction>
-    </EtherspotBatch>
-  </EtherspotBatches>
-  </EtherspotTransactionKit>
-  </div>
-    
+          <EtherspotTransaction to={transactionKitProps.to} value={transactionKitProps.amount}>
+            <div className="mt-2.5">
+              <input
+                type="text"
+                value={amount}
+                onChange={handleAmountChange}
+                onKeyDown={handleEnterPress}
+                placeholder="Enter Amount"
+                className= {unstyled ? '' : className }
+                style={style}
+              />
+              {error ? <p className='text-sm'>{error}</p> : ''}
+            </div>
+          </EtherspotTransaction>
+        </EtherspotBatch>
+      </EtherspotBatches>
+    </EtherspotTransactionKit>
   );
+
 };
 
 export default SendNativeToken;

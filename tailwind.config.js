@@ -1,9 +1,6 @@
+{import('tailwindcss').Config}
 module.exports = {
-  future: {
-    // removeDeprecatedGapUtilities: true,
-    // purgeLayersByDefault: true,
-  },
-  purge: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: ["./src/**/*.{js,ts,jsx,tsx}", "./node_modules/YOUR_LIBRARY/**/*.{js,ts,jsx,tsx}"], 
   theme: {
     extend: {},
   },
