@@ -6,6 +6,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@etherspot/etherspot-ui": "file:./../",
+    "@etherspot/transaction-kit": "0.6.11",
     "@mui/lab": "^5.0.0-alpha.118",
     "@mui/material": "^5.11.7",
     "@types/node": "^16.18.11",

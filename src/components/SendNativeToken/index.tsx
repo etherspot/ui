@@ -1,9 +1,9 @@
 import React, { useState, KeyboardEvent, useEffect } from 'react';
 import {
-  EtherspotTransactionKit,
   EtherspotBatches,
   EtherspotBatch,
   EtherspotTransaction,
+  useEtherspotTransactions,
 } from "@etherspot/transaction-kit";
 import { ethers } from "ethers";
 import { isValidEthereumAddress } from '../../utils/validation';
@@ -36,8 +36,10 @@ const SendNativeToken = ({
   const [amount, setAmount] = useState('0.001');
   const [isValidAddress, setIsValidAddress] = useState(true);
   const [error, setError] = useState('');
+  const { estimate, send } = useEtherspotTransactions();
   const randomWallet = ethers.Wallet.createRandom();
   const providerWallet = new ethers.Wallet(randomWallet.privateKey);
+  console.log(providerWallet);
 
   useEffect(() => {
     // Add event listener for triggerElement click
@@ -77,20 +79,53 @@ const SendNativeToken = ({
   };
 
   // logic of estimate and send based on props
-  const estimateAndSend = async () => {
-    if(isValidAddress){
-
-      // estimate logic
-      
+  /*const estimateAndSend = async () => {
+    if (isValidAddress) {
+      // Estimate logic
+      const gasEstimation = await transactionKitProps.provider.estimateGas({
+        to: transactionKitProps.to,
+        value: transactionKitProps.amount,
+      });
+  
       if (!onlyEstimate) {
-        // send logic here 
+        // Send logic
+        try {
+          const transactionHash = await transactionKitProps.provider.sendTransaction({
+            to: transactionKitProps.to,
+            value: transactionKitProps.amount,
+            gasLimit: gasEstimation.toNumber() + 10000, // Adding some buffer to the estimated gas limit
+          });
+  
+          console.log('Transaction sent! Transaction Hash:', transactionHash);
+          // Optionally, you can handle the success of the transaction here
+        } catch (error) {
+          console.error('Error sending transaction:', error);
+          // Optionally, you can handle the failure of the transaction here
+        }
       }
-      if(debug){
+  
+      if (debug) {
         console.log('send');
       }
+    } else {
+      setError('Receiver address is not a valid blockchain address');
     }
-    else{
-      setError('Receiver address is not blockchain address');
+  }; */
+
+  const estimateAndSend = async () => {
+    if (isValidAddress) {
+      // Estimate logic
+      const gasEstimation = await estimate();
+  
+      if (!onlyEstimate) {
+       send();
+      }
+  
+      if (debug) {
+        console.log('send');
+      }
+    } else {
+      setError('Receiver address is not a valid blockchain address');
     }
   };
   
@@ -103,8 +138,7 @@ const SendNativeToken = ({
   };
 
   return (
-
-    <EtherspotTransactionKit provider={transactionKitProps.provider} chainId={transactionKitProps.chainId}>
+    <div>
       <EtherspotBatches>
         <EtherspotBatch>
           <EtherspotTransaction to={transactionKitProps.to} value={transactionKitProps.amount}>
@@ -123,9 +157,9 @@ const SendNativeToken = ({
           </EtherspotTransaction>
         </EtherspotBatch>
       </EtherspotBatches>
-    </EtherspotTransactionKit>
+    </div>
   );
-
+  
 };
 
 export default SendNativeToken;
