@@ -4,7 +4,6 @@ import {
 } from '@etherspot/etherspot-ui'; 
 
 const App = () => {
-  
   const triggerElementRef = useRef<HTMLButtonElement>(null);
 
   return (
