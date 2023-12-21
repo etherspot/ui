@@ -1,10 +1,37 @@
+/* MIT License
+ * 
+ * Copyright (c) [Year] [Author]
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 import React, {useRef} from 'react';
-import   SendNativeTokenUI   from './sendNativeTokenUI';
+import { ethers } from "ethers";
+
+// Components
+import SendNativeTokenUI from './SendNativeTokenUI';
+
+// Services
 import {
   EtherspotTransactionKit
 } from "@etherspot/transaction-kit";
-import { ethers } from "ethers";
 
+// Props interface for the SendNativeToken component
 interface SendNativeTokenProps {
   receiverAddress: string;
   chain: number;
@@ -15,8 +42,32 @@ interface SendNativeTokenProps {
   triggerElement?: React.ReactNode | React.RefObject<HTMLElement>;
   disableSendOnEnter?: boolean;
   onlyEstimate?: boolean;
+  provider?: Object | undefined;
 }
 
+// Props interface for the SendNativeToken component
+/**
+ * @typedef {Object} SendNativeTokenProps - Props for the SendNativeToken component.
+ * @property {string} receiverAddress - The Ethereum address of the receiver.
+ * @property {number} chain - The Ethereum chain ID.
+ * @property {string} [className] - Additional tailwind CSS class for styling.
+ * @property {React.CSSProperties} [style] - Inline styles for the component overwrite tailwind CSS.
+ * @property {boolean} [unstyled=false] - Flag indicating whether to apply default styles.
+ * @property {boolean} [debug=false] - Flag indicating whether to enable debugging.
+ * @property {React.ReactNode | React.RefObject<HTMLElement>} [triggerElement] - Trigger element for UI interactions.
+ * @property {boolean} [disableSendOnEnter=false] - Flag indicating whether to disable sending on Enter key press.
+ * @property {boolean} [onlyEstimate=false] - Flag indicating whether to only estimate the transaction.
+ * @property {Object | undefined} [provider] - Ethereum provider (random wallet provider).
+ */
+
+/**
+ * @name SendNativeToken
+ * @description SendNativeToken component for sending native tokens using the EtherspotTransactionKit.
+ * @param {SendNativeTokenProps} props - The props for the component
+ * @returns {React.ReactElement} The rendered component.
+ */
+
+// SendNativeToken component
 const SendNativeToken = ({
   receiverAddress,
   chain,
@@ -27,16 +78,20 @@ const SendNativeToken = ({
   triggerElement,
   disableSendOnEnter = false,
   onlyEstimate = false,
+  provider
 }: SendNativeTokenProps) => {
-  const randomWallet = ethers.Wallet.createRandom();
-  const providerWallet = new ethers.Wallet(randomWallet.privateKey);
+  
+  // Ref for the trigger element (button) used in the UI component
   const triggerElementRef = useRef<HTMLButtonElement>(null);
-  console.log(providerWallet);
+  
   return (
-  <EtherspotTransactionKit
-    provider={providerWallet} /* The random wallet we created above */
-    chainId={chain}
-  >
+    // EtherspotTransactionKit component, wrapping the SendNativeTokenUI
+    <EtherspotTransactionKit
+      provider={provider} /* The random wallet we created above */
+      chainId={chain}
+    >
+
+      {/* Rendering the SendNativeTokenUI component */}
      <SendNativeTokenUI
         receiverAddress={receiverAddress}
         chain={chain} 
@@ -48,7 +103,10 @@ const SendNativeToken = ({
         style={style}
         triggerElement={triggerElementRef}
       />
-     </EtherspotTransactionKit>
+
+    </EtherspotTransactionKit>
   );
 };
 export default SendNativeToken;
+
+

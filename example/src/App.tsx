@@ -1,11 +1,19 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
+import { ethers } from "ethers"; 
+
+//Components
 import {
   SendNativeToken
 } from '@etherspot/etherspot-ui'; 
 
 const App = () => {
+
   const triggerElementRef = useRef<HTMLButtonElement>(null);
 
+  // Random wallet using ethers
+  const randomWallet = ethers.Wallet.createRandom();
+  const providerWallet = new ethers.Wallet(randomWallet.privateKey);
+  
   return (
   <div className="flex items-center"> 
   
@@ -18,11 +26,15 @@ const App = () => {
         triggerElement={triggerElementRef}
         disableSendOnEnter={false}
         onlyEstimate={false}
+        provider={providerWallet}
       />
       <div className="mt-6">
         <button className="px-4 py-2 rounded w-36 bg-gray-200 text-black" ref={triggerElementRef}>Send</button>
       </div>
   </div>
   );
+
 };
+
 export default App;
+
