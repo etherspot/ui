@@ -48,12 +48,13 @@ import { isValidEthereumAddress } from '../../utils/validation';
  */
 
 /**
- * @name SendNativeToken
+ * @name SendNativeTokenUI
  * @description SendNativeTokenUI component provides a UI for sending native crypto tokens
- * to another Ethereum address using the EtherspotTransactionKit.This user-friendly interface 
+ * to another Ethereum address using the EtherspotTransactionKit. This user-friendly interface 
  * is designed to simplify the complex underlying transaction mechanics, making it accessible 
  * to users who may not be familiar with the intricacies of blockchain transactions.
  * @param {SendNativeTokenUIProps} props - The props for the component.
+ * 
  * @returns {React.ReactElement} The rendered component.
  */
 
@@ -121,22 +122,33 @@ const SendNativeTokenUI = ({
       if (isValidAddress) {
         // Estimate logic
         const gasEstimation = await estimate();
-
+  
         if (!onlyEstimate) {
           // Send logic
           await send();
-        }
-
-        if (debug) {
-          console.log('Gas estimation:', gasEstimation);
           console.log('Transaction sent successfully');
         }
+        // Log gas estimation result
+        console.log('Gas estimation result:', gasEstimation);
       } else {
-        setError('Receiver address is not a valid blockchain address');
+        setError('Receiver address is not a valid blockchain address. Please double-check and try again.');
       }
     } catch (error) {
-      // Handle errors from estimate or send methods
-      setError('Something wrong is happening to estimate and send transaction. Try again.');
+      if (debug) {
+        console.error('Error in estimateAndSend:', error);
+  
+        if (error instanceof SomeSpecificEstimationError) {
+          console.error('Specific error in gas estimation:', error);
+        } else if (error instanceof SomeSpecificSendError) {
+          console.error('Specific error in sending transaction:', error);
+        }
+      }
+  
+      setError(
+        `An error occurred during the transaction. Please try again.${
+          debug ? ' Check the console for more details.' : ''
+        } If the issue persists, refer to the Etherspot documentation: https://etherspot.dev/docs`
+      );
     }
   };
 

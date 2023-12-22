@@ -61,10 +61,11 @@ interface SendNativeTokenProps {
 
 /**
  * @name SendNativeToken
- * @description SendNativeTokenUI component provides a UI for sending native crypto tokens
- * to another Ethereum address using the EtherspotTransactionKit.This user-friendly interface 
+ * @description SendNativeToken component provides a UI for sending native crypto tokens
+ * to another Ethereum address using the EtherspotTransactionKit. This user-friendly interface 
  * is designed to simplify the complex underlying transaction mechanics, making it accessible 
  * to users who may not be familiar with the intricacies of blockchain transactions.
+ * 
  * @param {SendNativeTokenProps} props - The props for the component
  * @returns {React.ReactElement} The rendered component.
  */
