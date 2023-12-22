@@ -1,6 +1,6 @@
 /* MIT License
  * 
- * Copyright (c) [Year] [Author]
+ * Copyright (c) 2023 Etherspot
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -48,8 +48,11 @@ import { isValidEthereumAddress } from '../../utils/validation';
  */
 
 /**
- * SendNativeTokenUI component for sending native tokens using the EtherspotTransactionKit.
- *
+ * @name SendNativeToken
+ * @description SendNativeTokenUI component provides a UI for sending native crypto tokens
+ * to another Ethereum address using the EtherspotTransactionKit.This user-friendly interface 
+ * is designed to simplify the complex underlying transaction mechanics, making it accessible 
+ * to users who may not be familiar with the intricacies of blockchain transactions.
  * @param {SendNativeTokenUIProps} props - The props for the component.
  * @returns {React.ReactElement} The rendered component.
  */
@@ -114,20 +117,26 @@ const SendNativeTokenUI = ({
 
   // Logic for estimating and sending transactions
   const estimateAndSend = async () => {
-    if (isValidAddress) {
-      // Estimate logic
-      const gasEstimation = await estimate();
+    try {
+      if (isValidAddress) {
+        // Estimate logic
+        const gasEstimation = await estimate();
 
-      if (!onlyEstimate) {
-        // Send logic
-        send();
-      }
+        if (!onlyEstimate) {
+          // Send logic
+          await send();
+        }
 
-      if (debug) {
-        console.log('Transaction sent successfully');
+        if (debug) {
+          console.log('Gas estimation:', gasEstimation);
+          console.log('Transaction sent successfully');
+        }
+      } else {
+        setError('Receiver address is not a valid blockchain address');
       }
-    } else {
-      setError('Receiver address is not a valid blockchain address');
+    } catch (error) {
+      // Handle errors from estimate or send methods
+      setError('Something wrong is happening to estimate and send transaction. Try again.');
     }
   };
 

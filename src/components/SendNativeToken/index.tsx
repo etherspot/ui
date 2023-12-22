@@ -1,6 +1,6 @@
 /* MIT License
  * 
- * Copyright (c) [Year] [Author]
+ * Copyright (c) 2023 Etherspot
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,6 @@
  * SOFTWARE.
  */
 import React, {useRef} from 'react';
-import { ethers } from "ethers";
 
 // Components
 import SendNativeTokenUI from './SendNativeTokenUI';
@@ -30,20 +29,6 @@ import SendNativeTokenUI from './SendNativeTokenUI';
 import {
   EtherspotTransactionKit
 } from "@etherspot/transaction-kit";
-
-// Props interface for the SendNativeToken component
-interface SendNativeTokenProps {
-  receiverAddress: string;
-  chain: number;
-  className?: string;
-  style?: React.CSSProperties;
-  unstyled?: boolean;
-  debug?: boolean;
-  triggerElement?: React.ReactNode | React.RefObject<HTMLElement>;
-  disableSendOnEnter?: boolean;
-  onlyEstimate?: boolean;
-  provider?: Object | undefined;
-}
 
 // Props interface for the SendNativeToken component
 /**
@@ -60,9 +45,26 @@ interface SendNativeTokenProps {
  * @property {Object | undefined} [provider] - Ethereum provider (random wallet provider).
  */
 
+// Props interface for the SendNativeToken component
+interface SendNativeTokenProps {
+  receiverAddress: string;
+  chain: number;
+  className?: string;
+  style?: React.CSSProperties;
+  unstyled?: boolean;
+  debug?: boolean;
+  triggerElement?: React.ReactNode | React.RefObject<HTMLElement>;
+  disableSendOnEnter?: boolean;
+  onlyEstimate?: boolean;
+  provider?: Object | undefined;
+}
+
 /**
  * @name SendNativeToken
- * @description SendNativeToken component for sending native tokens using the EtherspotTransactionKit.
+ * @description SendNativeTokenUI component provides a UI for sending native crypto tokens
+ * to another Ethereum address using the EtherspotTransactionKit.This user-friendly interface 
+ * is designed to simplify the complex underlying transaction mechanics, making it accessible 
+ * to users who may not be familiar with the intricacies of blockchain transactions.
  * @param {SendNativeTokenProps} props - The props for the component
  * @returns {React.ReactElement} The rendered component.
  */
@@ -81,16 +83,13 @@ const SendNativeToken = ({
   provider
 }: SendNativeTokenProps) => {
   
-  // Ref for the trigger element (button) used in the UI component
-  const triggerElementRef = useRef<HTMLButtonElement>(null);
-  
   return (
-    // EtherspotTransactionKit component, wrapping the SendNativeTokenUI
+    // EtherspotTransactionKit component, wrapping the SendNativeTokenUI, 
+    // Use EtherspotTransactionKit as wrapper from this file and import SendNativeToken from different file, otherwise transaction kit will not find parent provider.
     <EtherspotTransactionKit
-      provider={provider} /* The random wallet we created above */
+      provider={provider}
       chainId={chain}
     >
-
       {/* Rendering the SendNativeTokenUI component */}
      <SendNativeTokenUI
         receiverAddress={receiverAddress}
@@ -101,12 +100,13 @@ const SendNativeToken = ({
         disableSendOnEnter={disableSendOnEnter}
         onlyEstimate={onlyEstimate}
         style={style}
-        triggerElement={triggerElementRef}
+        triggerElement={triggerElement}
       />
-
     </EtherspotTransactionKit>
   );
-};
+}
+
 export default SendNativeToken;
+
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 
-// component
+// Component
 import SendNativeToken  from './index';
 
 // Metadata for the Storybook documentation

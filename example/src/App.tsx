@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { ethers } from "ethers"; 
 
-//Components
+// Components
 import {
   SendNativeToken
 } from '@etherspot/etherspot-ui'; 
@@ -16,7 +16,6 @@ const App = () => {
   
   return (
   <div className="flex items-center"> 
-  
      <SendNativeToken
         receiverAddress="0x725404c8Eead111d9E6DFE118c535F43402a9511"
         chain={1} 
@@ -33,7 +32,6 @@ const App = () => {
       </div>
   </div>
   );
-
 };
 
 export default App;

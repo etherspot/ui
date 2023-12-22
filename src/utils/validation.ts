@@ -6,7 +6,7 @@ export const isValidEthereumAddress = (address: string | undefined): boolean => 
     try {
       return ethers.utils.isAddress(address);
     } catch (e) {
-      //
+      console.log(e);
     }
     return false;
   };
