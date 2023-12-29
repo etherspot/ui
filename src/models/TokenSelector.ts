@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) [Year] [Author]
+ * Copyright (c) 2023 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import './index.css';
 
-export { default as SendNativeToken } from './components/SendNativeToken';
-export { default as TokenSelector } from './components/TokenSelector';
+import React from 'react';
+
+// Local
+import type { Token } from './Assets';
+
+export interface TokenSelectorProps {
+  onSelect: (tokens: Token[]) => void;
+  placeholder?: string;
+  customDropDownIcon?: any;
+  dropDownIconColor?: string;
+  style?: React.CSSProperties;
+  buttonStyle?: React.CSSProperties;
+  dropDownStyle?: React.CSSProperties;
+  dropDownButtonStyle?: React.CSSProperties;
+  dropDownHeight?: string;
+  dropDownWidth?: string;
+  checkMarkColor?: string;
+  checkMarkIconStyle?: React.CSSProperties;
+  loadingText?: string;
+  noTokenText?: string;
+}

@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) [Year] [Author]
+ * Copyright (c) 2023 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import './index.css';
 
-export { default as SendNativeToken } from './components/SendNativeToken';
-export { default as TokenSelector } from './components/TokenSelector';
+export const printLog = (category: string, message: any, debug: boolean = false) => {
+  if (!debug) return;
+  console.log(`${category}: `, message);
+};
+
+export const errorLog = (category: string, error: any, debug = false) => {
+  if (!debug) return;
+  console.error(`${category}: `, error);
+};

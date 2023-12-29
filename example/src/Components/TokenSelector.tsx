@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) [Year] [Author]
+ * Copyright (c) 2023 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import './index.css';
 
-export { default as SendNativeToken } from './components/SendNativeToken';
-export { default as TokenSelector } from './components/TokenSelector';
+import { TokenSelector as TokenListSelector } from '@etherspot/etherspot-ui';
+
+const TokenSelector = () => {
+  return (
+    <div className="flex items-center">
+      <TokenListSelector
+        dropDownHeight="300px"
+        dropDownWidth="300px"
+        onSelect={(tokens) => console.log('Selected tokens: ', tokens)}
+      />
+    </div>
+  );
+};
+
+export default TokenSelector;

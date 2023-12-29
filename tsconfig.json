@@ -13,10 +13,20 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "emitDeclarationOnly": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "models/*": ["src/models/*"],
+      "utils/*": ["src/utils/*"],
+      "hooks/*": ["src/hooks/*"],
+      "constants/*": ["src/constants/*"],
+      "src/*": ["src/*"],
+    },
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules","src/**/*.stories.tsx", "__tests__"]
+  "exclude": ["node_modules","src/**/*.stories.tsx", "__tests__"],
+  
 }
 
 
