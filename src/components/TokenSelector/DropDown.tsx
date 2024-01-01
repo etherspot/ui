@@ -27,17 +27,17 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { isEmpty } from 'lodash';
 
 // Hooks
-import { useAssets } from 'hooks/useAssets';
+import { useAssets } from '../../hooks/useAssets';
 
 // Utils
-import { getUpdatedTokenList, isTokenExists } from 'utils/tokens';
+import { getUpdatedTokenList, isTokenExists } from '../../utils/tokens';
 
 // Constants
-import { LOADING, NO_TOKENS, SELECT_TOKEN } from 'src/constants/TokenSelector';
+import { LOADING, NO_TOKENS, SELECT_TOKEN } from '../../constants/TokenSelector';
 
 // Types
-import type { Token } from 'models/Assets';
-import type { TokenSelectorProps } from 'models/TokenSelector';
+import type { Token } from '../../models/Assets';
+import type { TokenSelectorProps } from '../../models/TokenSelector';
 
 function DropDown(props: TokenSelectorProps) {
   const {

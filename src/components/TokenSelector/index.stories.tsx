@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2023 Etherspot
+ * Copyright (c) 2024 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +21,25 @@
  * SOFTWARE.
  */
 
-export const printLog = (category: string, message: unknown, debug: boolean = false) => {
-  if (!debug) return;
-  console.log(`${category}: `, message);
-};
+import React from 'react';
+import { Meta, StoryFn } from '@storybook/react';
 
-export const errorLog = (category: string, error: unknown, debug = false) => {
-  if (!debug) return;
-  console.error(`${category}: `, error);
+// Types
+import { TokenSelectorProps } from '../../models/TokenSelector';
+
+// Local
+import TokenSelectorList from './';
+
+export default {
+  title: 'Components/TokenSelector',
+  component: TokenSelectorList,
+} as Meta;
+
+const Template: StoryFn<TokenSelectorProps> = (args) => <TokenSelectorList {...args} />;
+
+export const TokenSelector = Template.bind({});
+TokenSelector.args = {
+  onSelect: (tokens) => {
+    console.log(tokens);
+  },
 };

@@ -22,7 +22,7 @@
  */
 
 // Type
-import type { Token } from 'models/Assets';
+import type { Token } from '../models/Assets';
 
 export const isSameToken = (a: Token, b: Token): boolean =>
   a.symbol === b.symbol && a?.address?.toLowerCase() === b?.address?.toLowerCase();

@@ -27,9 +27,10 @@ import React from 'react';
 import type { Token } from './Assets';
 
 export interface TokenSelectorProps {
+  // eslint-disable-next-line no-unused-vars
   onSelect: (tokens: Token[]) => void;
   placeholder?: string;
-  customDropDownIcon?: any;
+  customDropDownIcon?: never;
   dropDownIconColor?: string;
   style?: React.CSSProperties;
   buttonStyle?: React.CSSProperties;

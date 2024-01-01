@@ -25,10 +25,10 @@ import { useEffect, useState } from 'react';
 import { useEtherspotAssets } from '@etherspot/transaction-kit';
 
 // Utils
-import { printLog, errorLog } from 'utils/common';
+import { printLog, errorLog } from '../utils/common';
 
 // Type
-import type { Token } from 'models/Assets';
+import type { Token } from '../models/Assets';
 
 export const useAssets = (debug: boolean = false) => {
   const [isFetching, setIsFetching] = useState(false);
