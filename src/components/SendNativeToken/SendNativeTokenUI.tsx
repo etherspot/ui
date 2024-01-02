@@ -32,7 +32,6 @@ import {
 
 // Utils
 import { isValidEthereumAddress } from '../../utils/validation';
-import { SomeSpecificEstimationError, SomeSpecificSendError } from '../../utils/CustomErrors'
 
 // Props interface for the SendNativeTokenUI component
 /**
@@ -140,13 +139,13 @@ const SendNativeTokenUI = ({
       } else {
         setError('Receiver address is not a valid blockchain address. Please double-check and try again.');
       }
-    } catch (error) {
+    } catch (e) {
       if (debug) {
         console.error('Error in estimateAndSend:', error);
   
-        if (error instanceof SomeSpecificEstimationError) {
+        if (e instanceof Error) {
           console.error('Specific error in gas estimation:', error);
-        } else if (error instanceof SomeSpecificSendError) {
+        } else if (e instanceof  Error) {
           console.error('Specific error in sending transaction:', error);
         }
       }
