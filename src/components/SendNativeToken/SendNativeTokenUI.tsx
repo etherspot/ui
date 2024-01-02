@@ -39,6 +39,7 @@ import { isValidEthereumAddress } from '../../utils/validation';
  * @property {string} receiverAddress - The Ethereum address of the receiver.
  * @property {number} chain - The Ethereum chain ID.
  * @property {string} [className] - Additional CSS class for styling.
+ * @property {string} [errorMessageClass] - Additional CSS class for error styling.
  * @property {React.CSSProperties} [style] - Inline styles for the component.
  * @property {boolean} [unstyled=false] - Flag indicating whether to apply default styles.
  * @property {boolean} [debug=false] - Flag indicating whether to enable debugging.
@@ -62,6 +63,7 @@ const SendNativeTokenUI = ({
   receiverAddress,
   chain,
   className,
+  errorMessageClass,
   style,
   unstyled = false,
   debug = false,
@@ -71,15 +73,28 @@ const SendNativeTokenUI = ({
 }: SendNativeTokenUIProps): React.ReactElement => {
 
   // State for the amount input
-  const [amount, setAmount] = useState('0.001');
+  const [amount, setAmount] = useState('0');
   // State for checking if the receiver address is valid
-  const [isValidAddress, setIsValidAddress] = useState(true);
+  const [isValidAddress, setIsValidAddress] = useState(false);
   // State for handling errors
   const [error, setError] = useState('');
 
   // Hooks from the EtherspotTransactionKit for transaction estimation and sending
   const { estimate, send } = useEtherspotTransactions();
 
+  // Effect to validate the receiver address
+  useEffect(() => {
+    const validateAddress = async () => {
+      if (isValidEthereumAddress(receiverAddress)) {
+        setIsValidAddress(true);
+      } else {
+        setIsValidAddress(false);
+      }
+    };
+  
+    validateAddress();
+  }, [receiverAddress]);
+  
   // Effect to add and remove event listener for triggerElement click
   useEffect(() => {
     const triggerElementRef = triggerElement as React.MutableRefObject<HTMLElement> | undefined;
@@ -94,15 +109,6 @@ const SendNativeTokenUI = ({
       }
     };
   }, [triggerElement]);
-
-  // Effect to validate the receiver address
-  useEffect(() => {
-    if (isValidEthereumAddress(receiverAddress)) {
-      setIsValidAddress(true);
-    } else {
-      setIsValidAddress(false);
-    }
-  }, [receiverAddress]);
 
   // Handling key press events, specifically Enter key, for sending transactions
   const handleEnterPress = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -146,8 +152,8 @@ const SendNativeTokenUI = ({
   
       setError(
         `An error occurred during the transaction. Please try again.${
-          debug ? ' Check the console for more details.' : ''
-        } If the issue persists, refer to the Etherspot documentation: https://etherspot.dev/docs`
+          debug ? ' Check the console for more details. If the issue persists, refer to the Etherspot documentation: https://etherspot.dev/docs' : ''
+        }`
       );
     }
   };
@@ -157,7 +163,7 @@ const SendNativeTokenUI = ({
     <EtherspotBatches>
       <EtherspotBatch>
         <EtherspotTransaction to={receiverAddress} value={amount}>
-          <div className="mt-2.5">
+          <div>
             <input
               type="text"
               value={amount}
@@ -167,7 +173,7 @@ const SendNativeTokenUI = ({
               className={unstyled ? '' : className}
               style={style}
             />
-            {error ? <p className='text-sm'>{error}</p> : ''}
+            {error ? <p className={unstyled ? '' : errorMessageClass} style={style}>{error}</p> : ''}
           </div>
         </EtherspotTransaction>
       </EtherspotBatch>

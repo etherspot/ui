@@ -36,6 +36,7 @@ import {
  * @property {string} receiverAddress - The Ethereum address of the receiver.
  * @property {number} chain - The Ethereum chain ID.
  * @property {string} [className] - Additional tailwind CSS class for styling.
+ * @property {string} [errorMessageClass] - Additional tailwind CSS class for error styling.
  * @property {React.CSSProperties} [style] - Inline styles for the component overwrite tailwind CSS.
  * @property {boolean} [unstyled=false] - Flag indicating whether to apply default styles.
  * @property {boolean} [debug=false] - Flag indicating whether to enable debugging.
@@ -50,6 +51,7 @@ interface SendNativeTokenProps {
   receiverAddress: string;
   chain: number;
   className?: string;
+  errorMessageClass?: string;
   style?: React.CSSProperties;
   unstyled?: boolean;
   debug?: boolean;
@@ -75,6 +77,7 @@ const SendNativeToken = ({
   receiverAddress,
   chain,
   className,
+  errorMessageClass,
   style,
   unstyled = false,
   debug = false,
@@ -95,7 +98,8 @@ const SendNativeToken = ({
      <SendNativeTokenUI
         receiverAddress={receiverAddress}
         chain={chain} 
-        className= {className}
+        className={className}
+        errorMessageClass={errorMessageClass}
         unstyled={unstyled} 
         debug={debug}
         disableSendOnEnter={disableSendOnEnter}
