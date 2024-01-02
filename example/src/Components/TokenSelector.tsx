@@ -27,8 +27,8 @@ const TokenSelector = () => {
   return (
     <div className="flex items-center">
       <TokenListSelector
-        dropDownHeight="300px"
-        dropDownWidth="300px"
+        dropDownHeight="250px"
+        dropDownWidth="250px"
         onSelect={(tokens) => console.log('Selected tokens: ', tokens)}
       />
     </div>
