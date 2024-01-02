@@ -141,13 +141,11 @@ const SendNativeTokenUI = ({
       }
     } catch (e) {
       if (debug) {
-        console.error('Error in estimateAndSend:', error);
-  
-        if (e instanceof Error) {
-          console.error('Specific error in gas estimation:', error);
-        } else if (e instanceof  Error) {
-          console.error('Specific error in sending transaction:', error);
+
+        if (e instanceof Error && e?.message) {
+          console.error(`Error in gas estimation and sending transaction: ${e.message}`);
         }
+        
       }
   
       setError(
