@@ -72,7 +72,7 @@ function DropDown(props: TokenSelectorProps) {
   const newPlaceHolder = isEmpty(selected) ? placeholder : selected.map((token) => token.symbol).join(', ');
 
   return (
-    <div style={{ width: dropDownWidth, ...style }} className="fixed top-16 w-80 text-right">
+    <div style={{ width: dropDownWidth, ...style }} className="relative">
       <Menu as="div" className="relative inline-block w-full text-left">
         <div className="w-full">
           <Menu.Button
@@ -106,12 +106,12 @@ function DropDown(props: TokenSelectorProps) {
             <div className="px-1 py-1" style={{ height: dropDownHeight, overflowY: 'scroll' }}>
               {isFetching && (
                 <div className="w-full h-full flex" style={{ alignItems: 'center', justifyContent: 'center' }}>
-                  <a>{loadingText}</a>
+                  <text>{loadingText}</text>
                 </div>
               )}
               {!isFetching && isEmpty(tokens) && (
                 <div className="w-full h-full flex" style={{ alignItems: 'center', justifyContent: 'center' }}>
-                  <a>{noTokenText}</a>
+                  <text>{noTokenText}</text>
                 </div>
               )}
               {tokens.map((token) => {
