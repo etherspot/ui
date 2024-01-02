@@ -32,6 +32,7 @@ import {
 
 // Utils
 import { isValidEthereumAddress } from '../../utils/validation';
+import { SomeSpecificEstimationError, SomeSpecificSendError } from '../../utils/CustomErrors'
 
 // Props interface for the SendNativeTokenUI component
 /**
