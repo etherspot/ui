@@ -1,15 +1,22 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+
+// Component
 import SendNativeToken  from './index';
 
+// Metadata for the Storybook documentation
 export default {
   title: 'Components/SendNativeToken',
   component: SendNativeToken,
 } as Meta;
 
+// Template for the Storybook story using the Story component
 const Template: Story<SendNativeTokenProps> = (args) => <SendNativeToken {...args} />;
 
+// Storybook story for the NativeToken component
 export const NativeToken = Template.bind({});
+
+// Default arguments for the NativeToken story
 NativeToken.args = {
   receiverAddress: '0x725404c8Eead111d9E6DFE118c535F43402a9511',
   chain: 1,
@@ -19,5 +26,3 @@ NativeToken.args = {
   disableSendOnEnter: false,
   onlyEstimate: false,
 };
-
-

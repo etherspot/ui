@@ -57,7 +57,6 @@ export default [
         tsconfig: './tsconfig.json',
         exclude: ['./example/**', './src/test/**'],
       }),
-      
       replace({
         __ETHERSPOT_PROJECT_KEY__: process.env.ETHERSPOT_PROJECT_KEY ?? '',
         preventAssignment: true,
@@ -72,11 +71,9 @@ export default [
       'styled-components',
       'etherspot',
       '@etherspot/prime-sdk',
-      '@etherspot/transaction-kit',
-      
+      '@etherspot/transaction-kit'
     ],
   },
- 
   {
     input: 'dist/esm/types/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
