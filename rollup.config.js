@@ -6,9 +6,8 @@ import dts from 'rollup-plugin-dts';
 import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import dotenv from 'dotenv';
-import autoprefixer from 'autoprefixer';
 import postcss from 'rollup-plugin-postcss';
-
+import tailwindcss from 'tailwindcss';
 dotenv.config();
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -39,6 +38,19 @@ export default [
       resolve({
         browser: true,
       }),
+      postcss({
+        config: {
+          path: "./postcss.config.js",
+        },
+        plugins: [
+          tailwindcss('./tailwind.config.js'),
+        ],
+        extensions: [".css"],
+        minimize: true,
+        inject: {
+          insertAt: "top",
+        },
+      }),
       commonjs(),
       typescript({
         sourceMap: !isProduction,
@@ -51,12 +63,6 @@ export default [
         __ETHERSPOT_BUILDER_VERSION__: packageJson.version,
         __ETHERSPOT_SDK_VERSION__: packageJson.dependencies.etherspot,
       }),
-      postcss({
-        plugins: [autoprefixer()],
-        sourceMap: true,
-        extract: true,
-        minimize: true,
-      }),
       process.env.NODE_ENV === 'production' && terser(),
     ],
     external: [
@@ -65,13 +71,15 @@ export default [
       'styled-components',
       'etherspot',
       '@etherspot/prime-sdk',
-      '@etherspot/transaction-kit',
+      '@etherspot/transaction-kit'
     ],
   },
   {
-    input: 'dist/esm/index.d.ts',
+    input: 'dist/esm/types/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
-    plugins: [dts()],
+    plugins: [dts(),postcss({
+      minimize: true,
+    })],
     external: [
       'react',
       'react-dom',
