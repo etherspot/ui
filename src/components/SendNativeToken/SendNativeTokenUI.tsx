@@ -74,27 +74,13 @@ const SendNativeTokenUI = ({
 
   // State for the amount input
   const [amount, setAmount] = useState('0');
-  // State for checking if the receiver address is valid
-  const [isValidAddress, setIsValidAddress] = useState(false);
+ 
   // State for handling errors
   const [error, setError] = useState('');
 
   // Hooks from the EtherspotTransactionKit for transaction estimation and sending
   const { estimate, send } = useEtherspotTransactions();
 
-  // Effect to validate the receiver address
-  useEffect(() => {
-    const validateAddress = async () => {
-      if (isValidEthereumAddress(receiverAddress)) {
-        setIsValidAddress(true);
-      } else {
-        setIsValidAddress(false);
-      }
-    };
-  
-    validateAddress();
-  }, [receiverAddress]);
-  
   // Effect to add and remove event listener for triggerElement click
   useEffect(() => {
     const triggerElementRef = triggerElement as React.MutableRefObject<HTMLElement> | undefined;
@@ -125,7 +111,7 @@ const SendNativeTokenUI = ({
   // Logic for estimating and sending transactions
   const estimateAndSend = async () => {
     try {
-      if (isValidAddress) {
+      if (isValidEthereumAddress(receiverAddress)) {
         // Estimate logic
         const gasEstimation = await estimate();
   
@@ -161,7 +147,7 @@ const SendNativeTokenUI = ({
         <EtherspotTransaction to={receiverAddress} value={amount}>
           <div>
             <input
-              type="text"
+              type="number"
               value={amount}
               onChange={handleAmountChange}
               onKeyDown={handleEnterPress}
