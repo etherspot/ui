@@ -22,13 +22,19 @@
  */
 
 import { TokenSelector as TokenListSelector } from '@etherspot/etherspot-ui';
+import { ethers } from 'ethers';
 
 const TokenSelector = () => {
+  const providerWallet = new ethers.Wallet('0x673c79ab4c60f8d9e343aebc147d9e5cd670cab76c7328b03a23d0fef0aa734f');
+
   return (
     <div className="flex items-center">
       <TokenListSelector
-        dropDownHeight="250px"
-        dropDownWidth="250px"
+        provider={providerWallet}
+        chainId={1}
+        debug
+        dropdownHeight="250px"
+        dropdownWidth="250px"
         onSelect={(tokens) => console.log('Selected tokens: ', tokens)}
       />
     </div>

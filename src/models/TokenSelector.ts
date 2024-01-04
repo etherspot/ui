@@ -25,21 +25,25 @@ import React from 'react';
 
 // Local
 import type { Token } from './Assets';
+import type { BasicProps } from './Common';
 
-export interface TokenSelectorProps {
+export type TokenSelectorProps = BasicProps & DropdownProps;
+
+export interface DropdownProps {
   // eslint-disable-next-line no-unused-vars
   onSelect: (tokens: Token[]) => void;
   placeholder?: string;
-  customDropDownIcon?: never;
-  dropDownIconColor?: string;
-  style?: React.CSSProperties;
-  buttonStyle?: React.CSSProperties;
-  dropDownStyle?: React.CSSProperties;
-  dropDownButtonStyle?: React.CSSProperties;
-  dropDownHeight?: string;
-  dropDownWidth?: string;
+  customDropdownIcon?: never;
+  debug?: boolean;
+  dropdownIconColor?: string;
+  dropdownHeight?: string;
+  dropdownWidth?: string;
   checkMarkColor?: string;
-  checkMarkIconStyle?: React.CSSProperties;
   loadingText?: string;
   noTokenText?: string;
+  dropdownContainerClassName?: React.CSSProperties;
+  buttonClassName?: React.CSSProperties;
+  dropdownClassName?: React.CSSProperties;
+  dropdownButtonClassName?: React.CSSProperties;
+  checkMarkIconClassName?: React.CSSProperties;
 }

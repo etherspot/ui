@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2023 Etherspot
+ * Copyright (c) 2024 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,32 +21,10 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import { EtherspotTransactionKit } from '@etherspot/transaction-kit';
+import { ethers } from 'ethers';
 
-// Types
-import type { TokenSelectorProps } from '../../models/TokenSelector';
-
-// Local
-import Dropdown from './DropDown';
-
-/**
- * @name TokenSelector
- * @description TokenSelector component provides a UI for list of tokens in dropdown.
-   Shows tokens as per chainId. @param onSelect to easily we can import multiple tokens. 
-   We can customize dropdown UI as per our expectation.
- * @param {TokenSelectorProps} props - The props for the component
- * @returns {React.ReactElement} The rendered component.
- */
-
-const TokenSelector = (props: TokenSelectorProps) => {
-  const { provider, chainId, ...rest } = props;
-
-  return (
-    <EtherspotTransactionKit provider={provider} chainId={chainId}>
-      <Dropdown {...rest} />
-    </EtherspotTransactionKit>
-  );
+export type BasicProps = {
+  chainId: number;
+  provider: ethers.Wallet;
+  debug?: boolean;
 };
-
-export default TokenSelector;

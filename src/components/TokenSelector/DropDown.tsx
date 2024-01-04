@@ -37,31 +37,44 @@ import { LOADING, NO_TOKENS, SELECT_TOKEN } from '../../constants/TokenSelector'
 
 // Types
 import type { Token } from '../../models/Assets';
-import type { TokenSelectorProps } from '../../models/TokenSelector';
+import type { DropdownProps } from '../../models/TokenSelector';
 
-function DropDown(props: TokenSelectorProps) {
+function Dropdown(props: DropdownProps) {
   const {
     onSelect,
     placeholder = SELECT_TOKEN,
-    customDropDownIcon,
-    dropDownIconColor,
-    style,
-    buttonStyle,
-    dropDownStyle,
-    dropDownButtonStyle = { textAlign: 'left', fontSize: '12px' },
-    dropDownHeight = '200px',
-    dropDownWidth = '300px',
+    customDropdownIcon,
+    debug,
+    dropdownIconColor,
+    dropdownHeight,
+    dropdownWidth,
     checkMarkColor = 'blue',
-    checkMarkIconStyle = { width: '16px' },
     loadingText = LOADING,
     noTokenText = NO_TOKENS,
+    dropdownContainerClassName,
+    buttonClassName,
+    dropdownClassName,
+    dropdownButtonClassName,
+    checkMarkIconClassName,
   } = props;
 
-  const { tokens, isFetching } = useAssets();
+  /*
+   * Gets Tokens from Transaction kit as per chainId.
+   * Gets status(true/false) in isFetching
+   */
+  const { tokens, isFetching } = useAssets(debug);
 
+  /*
+   * Using this state to manage multiple token selection
+   * setLastSelectedToken used for re-render tokenlist.
+   */
   const [selected, setSelected] = useState<Token[]>([]);
   const [, setLastSelectedToken] = useState('');
 
+  /*
+   * Figure out whether the selected token is exists or not.
+   * Note: If it exists then remove it from the list otherwise add the token to the list
+   */
   const onSelectToken = (token: Token) => {
     const newTokenList = getUpdatedTokenList(token, selected);
     setLastSelectedToken(newTokenList.map((token) => token.name).join(','));
@@ -69,20 +82,26 @@ function DropDown(props: TokenSelectorProps) {
     onSelect && onSelect(newTokenList);
   };
 
+  /*
+   * Shows selected tokens symbol otherwise show placeholder
+   * Placeholder default value is `Select tokens...`
+   * Note: You can change dropdown placeholder using `placeholder` param
+   */
   const newPlaceHolder = isEmpty(selected) ? placeholder : selected.map((token) => token.symbol).join(', ');
 
   return (
-    <div style={{ width: dropDownWidth, ...style }} className="relative">
+    <div style={{ width: dropdownWidth }} className={`relative ${dropdownContainerClassName}`}>
       <Menu as="div" className="relative inline-block w-full text-left">
         <div className="w-full">
           <Menu.Button
-            style={buttonStyle}
-            className="flex w-full justify-between rounded-md bg-black/10 px-4 py-2 text-sm font-medium text-black hover:bg-black/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/15"
+            className={`flex w-full justify-between rounded-md bg-black/10 px-4 py-2 text-sm font-medium text-black hover:bg-black/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/15 ${buttonClassName}`}
           >
             {newPlaceHolder}
-            {customDropDownIcon ?? (
+
+            {/** We can customize the dropdown icon */}
+            {customDropdownIcon ?? (
               <ChevronUpDownIcon
-                style={{ color: dropDownIconColor }}
+                style={{ color: dropdownIconColor }}
                 className="-mr-1 ml-2 h-5 w-5 text-gray-900"
                 aria-hidden="true"
               />
@@ -100,10 +119,9 @@ function DropDown(props: TokenSelectorProps) {
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items
-            style={dropDownStyle}
-            className="absolute right-0 mt-2  origin-top-right divide-y divide-gray-100 rounded-md w-full bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+            className={`absolute right-0 mt-2  origin-top-right divide-y divide-gray-100 rounded-md w-full bg-white shadow-lg ring-1 ring-black/5 focus:outline-none ${dropdownClassName}`}
           >
-            <div className="px-1 py-1" style={{ height: dropDownHeight, overflowY: 'scroll' }}>
+            <div className="px-1 py-1" style={{ height: dropdownHeight, overflowY: 'scroll' }}>
               {isFetching && (
                 <div className="w-full h-full flex" style={{ alignItems: 'center', justifyContent: 'center' }}>
                   <text>{loadingText}</text>
@@ -114,8 +132,11 @@ function DropDown(props: TokenSelectorProps) {
                   <text>{noTokenText}</text>
                 </div>
               )}
+              {/** Shows tokens list in dropdown */}
               {tokens.map((token) => {
                 const { name, logoURI, symbol } = token;
+
+                // Check token is already selected or not.
                 const isSelected = isTokenExists(token, selected);
 
                 return (
@@ -123,16 +144,19 @@ function DropDown(props: TokenSelectorProps) {
                     {({ active }) => (
                       <button
                         onClick={() => onSelectToken(token)}
-                        style={{ ...dropDownButtonStyle }}
                         className={`${
                           active ? 'bg-blue-400 text-white' : 'text-gray-900'
-                        } flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                        } flex w-full items-center rounded-md px-2 py-2 text-sm ${dropdownButtonClassName}`}
                       >
                         <CheckIcon
-                          className="h-5 w-5 mr-1"
-                          style={{ color: isSelected ? checkMarkColor : 'transparent', ...checkMarkIconStyle }}
+                          className={`h-5 w-5 mr-1 ${checkMarkIconClassName}`}
+                          style={{ color: isSelected ? checkMarkColor : 'transparent' }}
                           aria-hidden="true"
                         />
+                        {/*
+                         * Display token image.
+                         * Hides token image if URL is not available
+                         */}
                         {logoURI && (
                           <img
                             src={logoURI}
@@ -156,4 +180,4 @@ function DropDown(props: TokenSelectorProps) {
   );
 }
 
-export default DropDown;
+export default Dropdown;
