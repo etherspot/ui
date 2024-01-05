@@ -21,20 +21,29 @@
  * SOFTWARE.
  */
 
-export const printLog = (category: string, message: unknown, debug: boolean = false) => {
-  if (!debug) return;
-  console.log(`${category}: `, message);
+import type { EstimatedBatch } from '@etherspot/transaction-kit';
+
+export type SendERC20Props = SendERC20TransactionProps &
+  SendERC20InputProps & {
+    // eslint-disable-next-line no-unused-vars
+    onEstimated?: (estimated: EstimatedBatch[]) => void;
+    onlyEstimate?: boolean;
+    triggerElement: React.MutableRefObject<HTMLElement> | React.RefObject<HTMLElement>;
+  };
+
+export type SendERC20TransactionProps = {
+  tokenAddress: string;
+  receiverAddress: string;
+  value: string;
+  approveFirst?: boolean;
 };
 
-export const errorLog = (category: string, error: unknown, debug = false) => {
-  if (!debug) return;
-  console.error(`${category}: `, error);
+export type SendERC20InputProps = {
+  value: string;
+  // eslint-disable-next-line no-unused-vars
+  onChangeValue: (value: string) => void;
+  decimals: number;
+  className?: string;
+  disableSendOnEnter?: boolean;
+  handleEnterPress?: () => void;
 };
-
-// Accepts values like '.', '0.', etc
-export const numberInProgressRegex = /^\d*\.?\d*$/;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function areEqual(first: any, second: any) {
-  return (first == null && second == null) || (first != null && second != null && first.eq(second));
-}

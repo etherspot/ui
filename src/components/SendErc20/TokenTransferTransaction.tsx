@@ -21,20 +21,17 @@
  * SOFTWARE.
  */
 
-export const printLog = (category: string, message: unknown, debug: boolean = false) => {
-  if (!debug) return;
-  console.log(`${category}: `, message);
-};
+import React from 'react';
+import { EtherspotTokenTransferTransaction } from '@etherspot/transaction-kit';
+import { isEmpty } from 'lodash';
 
-export const errorLog = (category: string, error: unknown, debug = false) => {
-  if (!debug) return;
-  console.error(`${category}: `, error);
-};
+// Types
+import type { SendERC20TransactionProps } from '../../models/Transactions';
 
-// Accepts values like '.', '0.', etc
-export const numberInProgressRegex = /^\d*\.?\d*$/;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function areEqual(first: any, second: any) {
-  return (first == null && second == null) || (first != null && second != null && first.eq(second));
+function TokenTransferTransaction(props: SendERC20TransactionProps) {
+  const { value } = props;
+  if (isEmpty(value)) return null;
+  return <EtherspotTokenTransferTransaction {...props} />;
 }
+
+export default TokenTransferTransaction;

@@ -23,8 +23,14 @@
 
 import TokenSelector from './Components/TokenSelector';
 import SendNativeToken from './Components/SendNativeToken';
+import SendErc20Token from './Components/SendErc20';
 
 const components = [
+  {
+    title: 'Send ERC-20 Token: <SendErc20 />',
+    description: '',
+    component: <SendErc20Token />,
+  },
   {
     title: 'Send Native Token: <SendNativeToken />',
     description:

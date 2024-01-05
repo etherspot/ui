@@ -21,20 +21,38 @@
  * SOFTWARE.
  */
 
-export const printLog = (category: string, message: unknown, debug: boolean = false) => {
-  if (!debug) return;
-  console.log(`${category}: `, message);
+import React from 'react';
+import { ethers } from 'ethers';
+import { EtherspotBatch, EtherspotBatches, EtherspotTransactionKit } from '@etherspot/transaction-kit';
+
+// Types
+import { SendERC20Props } from '../../models/Transactions';
+
+// Local
+import Erc20Transaction from './Erc20Transaction';
+
+/**
+ * @name SendErc20
+ * @description
+ * @param {} props - The props for the component
+ * @returns {React.ReactElement} The rendered component.
+ */
+
+const withTransactionKit = (WrappedComponent) => {
+  const TransactionKit = (props: SendERC20Props) => {
+    const { chainId, provider } = props;
+
+    return (
+      <EtherspotTransactionKit provider={provider} chainId={chainId}>
+        <EtherspotBatches onEstimated={props.onEstimated}>
+          <EtherspotBatch chainId={chainId}>
+            <WrappedComponent {...props} />
+          </EtherspotBatch>
+        </EtherspotBatches>
+      </EtherspotTransactionKit>
+    );
+  };
+  return TransactionKit;
 };
 
-export const errorLog = (category: string, error: unknown, debug = false) => {
-  if (!debug) return;
-  console.error(`${category}: `, error);
-};
-
-// Accepts values like '.', '0.', etc
-export const numberInProgressRegex = /^\d*\.?\d*$/;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function areEqual(first: any, second: any) {
-  return (first == null && second == null) || (first != null && second != null && first.eq(second));
-}
+export default withTransactionKit;

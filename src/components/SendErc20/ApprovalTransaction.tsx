@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2023 Etherspot
+ * Copyright (c) 2024 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,20 +21,19 @@
  * SOFTWARE.
  */
 
-export const printLog = (category: string, message: unknown, debug: boolean = false) => {
-  if (!debug) return;
-  console.log(`${category}: `, message);
-};
+import React from 'react';
+import { EtherspotApprovalTransaction } from '@etherspot/transaction-kit';
 
-export const errorLog = (category: string, error: unknown, debug = false) => {
-  if (!debug) return;
-  console.error(`${category}: `, error);
-};
+// Types
+import type { SendERC20TransactionProps } from '../../models/Transactions';
+import { isEmpty } from 'lodash';
 
-// Accepts values like '.', '0.', etc
-export const numberInProgressRegex = /^\d*\.?\d*$/;
+function ApprovalTransaction(props: SendERC20TransactionProps) {
+  const { value, approveFirst } = props;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function areEqual(first: any, second: any) {
-  return (first == null && second == null) || (first != null && second != null && first.eq(second));
+  if (isEmpty(value) || !approveFirst) return null;
+
+  return <EtherspotApprovalTransaction {...props} />;
 }
+
+export default ApprovalTransaction;
