@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2024 Etherspot
+ * Copyright (c) 2023 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,15 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import React from 'react';
-import ReactDOM from 'react-dom/client';
 
-// Local
-import App from './App';
-
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+export const SELECT_TOKEN = 'Select tokens...';
+export const LOADING = 'loading…';
+export const NO_TOKENS = 'No tokens';

@@ -20,15 +20,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import React from 'react';
-import ReactDOM from 'react-dom/client';
 
-// Local
-import App from './App';
+import { ethers } from 'ethers';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+export type BasicProps = {
+  chainId: number;
+  provider: ethers.Wallet;
+  debug?: boolean;
+};

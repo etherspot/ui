@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2024 Etherspot
+ * Copyright (c) 2023 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,15 +20,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 
 // Local
-import App from './App';
+import type { Token } from './Assets';
+import type { BasicProps } from './Common';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+export type TokenSelectorProps = BasicProps & DropdownProps;
+
+export interface DropdownProps {
+  // eslint-disable-next-line no-unused-vars
+  onSelect: (tokens: Token[]) => void;
+  placeholder?: string;
+  customDropdownIcon?: never;
+  debug?: boolean;
+  dropdownIconColor?: string;
+  dropdownHeight?: string;
+  dropdownWidth?: string;
+  checkMarkColor?: string;
+  loadingText?: string;
+  noTokenText?: string;
+  dropdownContainerClassName?: React.CSSProperties;
+  buttonClassName?: React.CSSProperties;
+  dropdownClassName?: React.CSSProperties;
+  dropdownButtonClassName?: React.CSSProperties;
+  checkMarkIconClassName?: React.CSSProperties;
+}

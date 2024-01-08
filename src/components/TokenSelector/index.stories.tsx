@@ -20,15 +20,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { Meta, StoryFn } from '@storybook/react';
+
+// Types
+import { TokenSelectorProps } from '../../models/TokenSelector';
 
 // Local
-import App from './App';
+import TokenSelectorList from './';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+export default {
+  title: 'Components/TokenSelector',
+  component: TokenSelectorList,
+} as Meta;
+
+const Template: StoryFn<TokenSelectorProps> = (args) => <TokenSelectorList {...args} />;
+
+export const TokenSelector = Template.bind({});
+TokenSelector.args = {
+  onSelect: (tokens) => {
+    console.log(tokens);
+  },
+};

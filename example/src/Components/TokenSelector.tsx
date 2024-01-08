@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2024 Etherspot
+ * Copyright (c) 2023 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,15 +20,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import React from 'react';
-import ReactDOM from 'react-dom/client';
 
-// Local
-import App from './App';
+import { TokenSelector as TokenListSelector } from '@etherspot/etherspot-ui';
+import { ethers } from 'ethers';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+const TokenSelector = () => {
+  const providerWallet = new ethers.Wallet('0x673c79ab4c60f8d9e343aebc147d9e5cd670cab76c7328b03a23d0fef0aa734f');
+
+  return (
+    <div className="flex items-center">
+      <TokenListSelector
+        provider={providerWallet}
+        chainId={1}
+        debug
+        dropdownHeight="250px"
+        dropdownWidth="250px"
+        onSelect={(tokens) => console.log('Selected tokens: ', tokens)}
+      />
+    </div>
+  );
+};
+
+export default TokenSelector;

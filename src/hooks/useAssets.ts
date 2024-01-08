@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2024 Etherspot
+ * Copyright (c) 2023 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,15 +20,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import React from 'react';
-import ReactDOM from 'react-dom/client';
 
-// Local
-import App from './App';
+import { useEffect, useState } from 'react';
+import { useEtherspotAssets } from '@etherspot/transaction-kit';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+// Utils
+import { printLog, errorLog } from '../utils/common';
+
+// Type
+import type { Token } from '../models/Assets';
+
+export const useAssets = (debug: boolean = false) => {
+  const [isFetching, setIsFetching] = useState(false);
+  const [tokens, setTokens] = useState<Token[]>([]);
+
+  const { getAssets } = useEtherspotAssets();
+
+  useEffect(() => {
+    (async () => {
+      setIsFetching(true);
+      try {
+        const assets = await getAssets();
+        setTokens(assets);
+        setIsFetching(false);
+        printLog('getAssets resonse', assets, debug);
+      } catch (error) {
+        setIsFetching(false);
+        errorLog('getAssets failed', error, debug);
+      }
+    })();
+  }, []);
+
+  return { tokens, isFetching };
+};

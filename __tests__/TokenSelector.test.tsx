@@ -21,14 +21,16 @@
  * SOFTWARE.
  */
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { jest } from '@jest/globals';
+import { render, cleanup } from '@testing-library/react';
 
 // Local
-import App from './App';
+import TokenSelector from '../src/components/TokenSelector';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+jest.useFakeTimers();
+afterEach(cleanup);
+
+test('should render TokenSelector correctly', () => {
+  const rendered = render(<TokenSelector onSelect={() => {}} />);
+  expect(rendered).toMatchSnapshot();
+});

@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2024 Etherspot
+ * Copyright (c) 2023 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,15 +20,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { EtherspotTransactionKit } from '@etherspot/transaction-kit';
+
+// Types
+import type { TokenSelectorProps } from '../../models/TokenSelector';
 
 // Local
-import App from './App';
+import Dropdown from './DropDown';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+/**
+ * @name TokenSelector
+ * @description TokenSelector component provides a UI for list of tokens in dropdown.
+   Shows tokens as per chainId. @param onSelect to easily we can import multiple tokens. 
+   We can customize dropdown UI as per our expectation.
+ * @param {TokenSelectorProps} props - The props for the component
+ * @returns {React.ReactElement} The rendered component.
+ */
+
+const TokenSelector = (props: TokenSelectorProps) => {
+  const { provider, chainId, ...rest } = props;
+
+  return (
+    <EtherspotTransactionKit provider={provider} chainId={chainId}>
+      <Dropdown {...rest} />
+    </EtherspotTransactionKit>
+  );
+};
+
+export default TokenSelector;
