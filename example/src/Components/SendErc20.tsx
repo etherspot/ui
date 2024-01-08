@@ -33,7 +33,7 @@ const SendErc20Token = () => {
   const providerWallet = new ethers.Wallet('0x673c79ab4c60f8d9e343aebc147d9e5cd670cab76c7328b03a23d0fef0aa734f');
 
   return (
-    <div className=" items-center">
+    <div className="items-center">
       <SendErc20
         disableSendOnEnter
         approveFirst
@@ -42,11 +42,13 @@ const SendErc20Token = () => {
         value={inputValue}
         onChangeValue={setInputValue}
         triggerElement={triggerElementRef}
-        tokenAddress={'0x2A9bb3fB4FBF8e536b9a6cBEbA33C4CD18369EaF'}
+        decimals={9}
+        tokenAddress={'0xE17f017475a709De58E976081eB916081ff4c9d5'}
         receiverAddress={'0x0493b9a21dE42546B2E3687Da683D0B7B6ec2180'}
-        className="block rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        className="block rounded-md border-0 px-3.5 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        onEstimated={(res) => console.log('ON ESTIMATES', res)}
       />
-      <div className="mt-16">
+      <div className="mt-6">
         <button ref={triggerElementRef} className="py-2 rounded w-36 pt-100 text-black">
           Send
         </button>

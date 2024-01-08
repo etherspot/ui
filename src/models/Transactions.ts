@@ -21,12 +21,20 @@
  * SOFTWARE.
  */
 
-import type { EstimatedBatch } from '@etherspot/transaction-kit';
+import type { EstimatedBatch, ISentBatches } from '@etherspot/transaction-kit';
+import { ethers } from 'ethers';
 
 export type SendERC20Props = SendERC20TransactionProps &
   SendERC20InputProps & {
     // eslint-disable-next-line no-unused-vars
     onEstimated?: (estimated: EstimatedBatch[]) => void;
+    // eslint-disable-next-line no-unused-vars
+    onSent?: (sentBatches: ISentBatches[]) => void;
+    // eslint-disable-next-line no-unused-vars
+    onExecutionStatus?: (status: boolean) => void;
+    debug?: boolean;
+    chainId: number;
+    provider: ethers.Wallet;
     onlyEstimate?: boolean;
     triggerElement: React.MutableRefObject<HTMLElement> | React.RefObject<HTMLElement>;
   };
@@ -46,4 +54,5 @@ export type SendERC20InputProps = {
   className?: string;
   disableSendOnEnter?: boolean;
   handleEnterPress?: () => void;
+  errorMessageClassName?: string;
 };

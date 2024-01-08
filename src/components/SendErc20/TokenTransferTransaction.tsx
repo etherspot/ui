@@ -25,12 +25,23 @@ import React from 'react';
 import { EtherspotTokenTransferTransaction } from '@etherspot/transaction-kit';
 import { isEmpty } from 'lodash';
 
+// Utils
+import { erc20ValidationMessage } from '../../utils/validation';
+
 // Types
 import type { SendERC20TransactionProps } from '../../models/Transactions';
 
+/**
+ * @name TokenTransferTransaction
+ * @description: The following <EtherspotTokenTransferTransaction />
+    component will transfer [value] [token] from the built-in
+    Etherspot Smart Wallet account to the receiverAddress.
+ * @param {SendERC20TransactionProps} props - The props for the component
+ * @returns {React.ReactElement} The rendered component.
+ */
 function TokenTransferTransaction(props: SendERC20TransactionProps) {
-  const { value } = props;
-  if (isEmpty(value)) return null;
+  if (!isEmpty(erc20ValidationMessage(props))) return null;
+
   return <EtherspotTokenTransferTransaction {...props} />;
 }
 

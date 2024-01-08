@@ -23,15 +23,28 @@
 
 import React from 'react';
 import { EtherspotApprovalTransaction } from '@etherspot/transaction-kit';
+import { isEmpty } from 'lodash';
+
+// Utils
+import { erc20ValidationMessage } from '../../utils/validation';
 
 // Types
 import type { SendERC20TransactionProps } from '../../models/Transactions';
-import { isEmpty } from 'lodash';
 
+/**
+ * @name ApprovalTransaction
+ * @description: The following block is the first transaction in this batch
+    of transactions, and instructs Etherspot to set a spending
+    limit for the Smart Contract located at `receiverAddress`
+    to be allowed to spend the token located at `tokenAddress`
+    up to the amount specified in `value`.
+ * @param {SendERC20TransactionProps} props - The props for the component
+ * @returns {React.ReactElement} The rendered component.
+ */
 function ApprovalTransaction(props: SendERC20TransactionProps) {
-  const { value, approveFirst } = props;
+  const { approveFirst } = props;
 
-  if (isEmpty(value) || !approveFirst) return null;
+  if (!isEmpty(erc20ValidationMessage(props)) || !approveFirst) return null;
 
   return <EtherspotApprovalTransaction {...props} />;
 }

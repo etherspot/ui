@@ -21,17 +21,29 @@
  * SOFTWARE.
  */
 
-import React, { useMemo } from 'react';
+import React, { useState } from 'react';
 
-// Types
-import type { SendERC20InputProps, SendERC20TransactionProps } from '../../models/Transactions';
+// Utils
 import { normalizeRawValue, parseBigNumber } from '../../utils/bigNumber';
 import { numberInProgressRegex } from '../../utils/common';
 import { erc20ValidationMessage } from '../../utils/validation';
 
-function Erc20Input(props: SendERC20InputProps & SendERC20TransactionProps) {
-  const { value, onChangeValue, decimals, className, disableSendOnEnter, handleEnterPress } = props;
+// Types
+import type { SendERC20InputProps, SendERC20TransactionProps } from '../../models/Transactions';
 
+/**
+ * @name Erc20Input
+ * @description: Use of Erc20Input as token value input.
+ * @param {SendERC20InputProps & SendERC20TransactionProps} props - The props for the component
+ * @returns {React.ReactElement} The rendered component.
+ */
+function Erc20Input(props: SendERC20InputProps & SendERC20TransactionProps) {
+  const { value, errorMessageClassName, onChangeValue, decimals, className, disableSendOnEnter, handleEnterPress } =
+    props;
+
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // Check entered value is number or not and convert into bignumber.
   const onChange = (event) => {
     const { value: newValue } = event.target;
 
@@ -41,32 +53,30 @@ function Erc20Input(props: SendERC20InputProps & SendERC20TransactionProps) {
     const parseValue = parseBigNumber(normalizedValue);
     if (parseValue?.isNaN()) return;
 
+    // Check tokenAddress, receiverAddress and value is valid or not.
+    setErrorMessage(erc20ValidationMessage({ ...props, value: normalizedValue }));
+
     onChangeValue && onChangeValue(normalizedValue);
   };
-
-  // const errorMessage = useMemo(() => {
-  //   return erc20ValidationMessage(props);
-  // }, [value]);
-
-  // console.log('====================================');
-  // console.log('errorMessage', errorMessage);
-  // console.log('====================================');
 
   const onKeyDown = () => {
     if (!disableSendOnEnter) handleEnterPress && handleEnterPress();
   };
 
   return (
-    <input
-      type="text"
-      name="value"
-      id="value"
-      value={value}
-      onChange={onChange}
-      className={className}
-      onKeyDown={onKeyDown}
-      placeholder="0.00"
-    />
+    <>
+      <input
+        type="text"
+        name="value"
+        id="value"
+        value={value}
+        onChange={onChange}
+        className={className}
+        onKeyDown={onKeyDown}
+        placeholder="0.00"
+      />
+      {errorMessage ? <p className={`sm:text-sm ${errorMessageClassName}`}>{errorMessage}</p> : ''}
+    </>
   );
 }
 

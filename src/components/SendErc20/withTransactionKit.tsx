@@ -22,30 +22,39 @@
  */
 
 import React from 'react';
-import { ethers } from 'ethers';
 import { EtherspotBatch, EtherspotBatches, EtherspotTransactionKit } from '@etherspot/transaction-kit';
 
 // Types
 import { SendERC20Props } from '../../models/Transactions';
 
-// Local
-import Erc20Transaction from './Erc20Transaction';
+// Required Props for the SendErc20 component
+/**
+ * @typedef {Object} SendERC20Props - Props for the SendERC20Props component.
+ * @property {string} tokenAddress - Address of ERC20 token.
+ * @property {string} receiverAddress - The Ethereum address of the receiver.
+ * @property {string} value - value of Erc20 token.
+ * @property {string} onChangeValue - gets updated value from onChangeValue.
+ * @property {number} chainId - The Ethereum chain ID.
+ * @property {ethers.Wallet} provider - The Ethereum provider.
+ * @property {number} decimals - decimals for ERC20 token(using for convert number to bignumber).
+ * @property {React.ReactNode | React.RefObject<HTMLElement>} [triggerElement] - Trigger element for UI interactions.
+ */
 
 /**
  * @name SendErc20
- * @description
- * @param {} props - The props for the component
+ * @description Using SendErc20 component to we can send Erc20 token. 
+    For sending token need tokenAddress, receiverAddress and value.
+ * @param {SendERC20Props} props - The props for the component
  * @returns {React.ReactElement} The rendered component.
  */
-
 const withTransactionKit = (WrappedComponent) => {
   const TransactionKit = (props: SendERC20Props) => {
     const { chainId, provider } = props;
 
     return (
       <EtherspotTransactionKit provider={provider} chainId={chainId}>
-        <EtherspotBatches onEstimated={props.onEstimated}>
-          <EtherspotBatch chainId={chainId}>
+        <EtherspotBatches>
+          <EtherspotBatch>
             <WrappedComponent {...props} />
           </EtherspotBatch>
         </EtherspotBatches>

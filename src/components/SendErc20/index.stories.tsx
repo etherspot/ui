@@ -25,6 +25,7 @@ import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
 
 // Types
+import { SendERC20Props } from '../../models/Transactions';
 
 // Local
 import SendErc20 from './';
@@ -34,7 +35,15 @@ export default {
   component: SendErc20,
 } as Meta;
 
-const Template: StoryFn = (args) => <SendErc20 {...args} />;
+const Template: StoryFn<SendERC20Props> = (args) => <SendErc20 {...args} />;
 
-export const TokenSelector = Template.bind({});
-TokenSelector.args = {};
+export const SendERC20 = Template.bind({});
+SendERC20.args = {
+  disableSendOnEnter: false,
+  approveFirst: true,
+  chainId: 1,
+  value: '',
+  decimals: 9,
+  tokenAddress: '',
+  receiverAddress: '',
+};
