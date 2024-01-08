@@ -49,15 +49,15 @@ const components = [
 const App = () => {
   return (
     <div className="flex w-full h-full" style={style.container}>
-      <text style={style.title}>{'Etherspot UI Components'}</text>
+      <span style={style.title}>{'Etherspot UI Components'}</span>
       {components.map(({ title, description, component }) => {
         return (
-          <div className="flex" style={style.listMainContainer}>
+          <div key={title} className="flex" style={style.listMainContainer}>
             <div style={style.leftContainer}>
-              <text style={style.componentTitle}>{title || 'Title'}</text>
+              <span style={style.componentTitle}>{title || 'Title'}</span>
               <div className="flex" style={style.descriptionContainer}>
-                <text style={style.dot}>•</text>
-                <text style={style.description}>{description || 'Description'}</text>
+                <span style={style.dot}>•</span>
+                <span style={style.description}>{description || 'Description'}</span>
               </div>
             </div>
             <div className="flex w-full h-full" style={style.component}>

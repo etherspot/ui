@@ -22,9 +22,10 @@
  */
 
 import type { EstimatedBatch, ISentBatches } from '@etherspot/transaction-kit';
-import { ethers } from 'ethers';
+import type { BasicProps } from './Common';
 
-export type SendERC20Props = SendERC20TransactionProps &
+export type SendERC20Props = BasicProps &
+  SendERC20TransactionProps &
   SendERC20InputProps & {
     // eslint-disable-next-line no-unused-vars
     onEstimated?: (estimated: EstimatedBatch[]) => void;
@@ -32,9 +33,6 @@ export type SendERC20Props = SendERC20TransactionProps &
     onSent?: (sentBatches: ISentBatches[]) => void;
     // eslint-disable-next-line no-unused-vars
     onExecutionStatus?: (status: boolean) => void;
-    debug?: boolean;
-    chainId: number;
-    provider: ethers.Wallet;
     onlyEstimate?: boolean;
     triggerElement: React.MutableRefObject<HTMLElement> | React.RefObject<HTMLElement>;
   };
