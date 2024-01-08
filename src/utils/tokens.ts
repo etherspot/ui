@@ -30,6 +30,7 @@ export const isSameToken = (a: Token, b: Token): boolean =>
 export const isTokenExists = (token: Token, tokenList: Token[]): boolean =>
   tokenList.some((tokenA) => isSameToken(tokenA, token));
 
+// Use for tokens filter
 export const getUpdatedTokenList = (token: Token, tokenList: Token[]): Token[] => {
   const tokenIndex = tokenList?.findIndex((tokenA) => isSameToken(tokenA, token));
 
