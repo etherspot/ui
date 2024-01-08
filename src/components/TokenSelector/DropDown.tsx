@@ -160,7 +160,7 @@ function Dropdown(props: DropdownProps) {
                         {logoURI && (
                           <img
                             src={logoURI}
-                            alt="new"
+                            alt={`${name} (${symbol}) image`}
                             aria-hidden="true"
                             className="mr-2 h-5 w-5"
                             style={{ borderRadius: '50%' }}
