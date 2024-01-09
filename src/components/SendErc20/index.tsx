@@ -21,7 +21,7 @@
  * SOFTWARE.
  */
 
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { isEmpty } from 'lodash';
 import { useEtherspotTransactions } from '@etherspot/transaction-kit';
 
@@ -48,7 +48,6 @@ import Erc20Input from './Erc20Input';
  * @property {number} chainId - The Ethereum chain ID.
  * @property {ethers.Wallet} provider - The Ethereum provider.
  * @property {number} decimals - decimals for ERC20 token(using for convert number to bignumber).
- * @property {React.ReactNode | React.RefObject<HTMLElement>} [triggerElement] - Trigger element for UI interactions.
  */
 
 /**
@@ -59,33 +58,36 @@ import Erc20Input from './Erc20Input';
  * @returns {React.ReactElement} The rendered component.
  */
 const SendErc20 = (props: SendERC20Props) => {
-  const { triggerElement, debug, onlyEstimate, onSent, onEstimated, handleEnterPress, onExecutionStatus } = props;
+  const {
+    debug,
+    onlyEstimate,
+    onSent,
+    onEstimated,
+    handleEnterPress,
+    onExecutionStatus,
+    containerClassName,
+    buttonContainerClassName,
+    buttonClassName,
+    buttonTitle,
+  } = props;
 
   const { estimate, send } = useEtherspotTransactions();
 
-  // Effect to add and remove event listener for triggerElement click
-  useEffect(() => {
-    if (triggerElement?.current) {
-      triggerElement.current.addEventListener('click', estimateAndSend);
-    }
-
-    // Cleanup
-    return () => {
-      if (triggerElement?.current) {
-        triggerElement.current.removeEventListener('click', estimateAndSend);
-      }
-    };
-  }, [triggerElement]);
+  const [isEstimate, setIsEstimate] = useState(false);
 
   // if disableSendOnEnter is false then fired this fn.
   const onEnterPress = () => {
-    if (isEmpty(erc20ValidationMessage(props))) estimateAndSend();
+    estimateAndSend();
     handleEnterPress && handleEnterPress();
   };
 
   // Execution for estimation and send process.
   const estimateAndSend = async () => {
+    // Return if the token address, receiver address or value not valid.
+    if (!isEmpty(erc20ValidationMessage(props)) || isEstimate) return;
+
     try {
+      setIsEstimate(true);
       onExecutionStatus && onExecutionStatus(true);
       /**
        * Any transaction that is intended to be sent to the blockchain must be estimated first. 
@@ -103,19 +105,29 @@ const SendErc20 = (props: SendERC20Props) => {
         onSent && onSent(response);
       }
 
+      setIsEstimate(false);
       onExecutionStatus && onExecutionStatus(false);
     } catch (e) {
+      setIsEstimate(false);
       onExecutionStatus && onExecutionStatus(false);
       errorLog('Send or Estimate failed!', e, debug);
     }
   };
 
   return (
-    <>
+    <div className={containerClassName}>
       <ApprovalTransaction {...props} />
+
       <TokenTransferTransaction {...props} />
+
       <Erc20Input {...props} handleEnterPress={onEnterPress} />
-    </>
+
+      <div className={buttonContainerClassName}>
+        <button onClick={estimateAndSend} className={buttonClassName}>
+          {buttonTitle ?? (onlyEstimate ? 'Estimate' : 'Send')}
+        </button>
+      </div>
+    </div>
   );
 };
 

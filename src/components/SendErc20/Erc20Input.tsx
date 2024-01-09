@@ -75,7 +75,7 @@ function Erc20Input(props: SendERC20InputProps & SendERC20TransactionProps) {
         onKeyDown={onKeyDown}
         placeholder="0.00"
       />
-      {errorMessage ? <p className={`sm:text-sm ${errorMessageClassName}`}>{errorMessage}</p> : ''}
+      <p className={`sm:text-sm ${errorMessageClassName}`}>{errorMessage}</p>
     </>
   );
 }

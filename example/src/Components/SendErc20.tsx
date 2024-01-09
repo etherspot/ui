@@ -21,13 +21,11 @@
  * SOFTWARE.
  */
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { ethers } from 'ethers';
 import { SendErc20 } from '@etherspot/etherspot-ui';
 
 const SendErc20Token = () => {
-  const triggerElementRef = useRef<HTMLButtonElement>(null);
-
   const [inputValue, setInputValue] = useState('');
 
   const providerWallet = new ethers.Wallet('0x673c79ab4c60f8d9e343aebc147d9e5cd670cab76c7328b03a23d0fef0aa734f');
@@ -41,18 +39,15 @@ const SendErc20Token = () => {
         provider={providerWallet}
         value={inputValue}
         onChangeValue={setInputValue}
-        triggerElement={triggerElementRef}
         decimals={9}
         tokenAddress={'0xE17f017475a709De58E976081eB916081ff4c9d5'}
         receiverAddress={'0x0493b9a21dE42546B2E3687Da683D0B7B6ec2180'}
         className="block rounded-md border-0 px-3.5 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-        onEstimated={(res) => console.log('ON ESTIMATES', res)}
+        buttonClassName="flex py-2 rounded w-36 pt-100 text-black"
+        onEstimated={(res: any) => console.log('ON Estimates', res)}
+        onExecutionStatus={(status) => console.log('ON Execution', status)}
+        onSent={(sentRes) => console.log('ON Sent', sentRes)}
       />
-      <div className="mt-6">
-        <button ref={triggerElementRef} className="py-2 rounded w-36 pt-100 text-black">
-          Send
-        </button>
-      </div>
     </div>
   );
 };

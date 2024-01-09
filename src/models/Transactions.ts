@@ -26,7 +26,8 @@ import type { BasicProps } from './Common';
 
 export type SendERC20Props = BasicProps &
   SendERC20TransactionProps &
-  SendERC20InputProps & {
+  SendERC20InputProps &
+  SendButtonProps & {
     // eslint-disable-next-line no-unused-vars
     onEstimated?: (estimated: EstimatedBatch[]) => void;
     // eslint-disable-next-line no-unused-vars
@@ -34,7 +35,6 @@ export type SendERC20Props = BasicProps &
     // eslint-disable-next-line no-unused-vars
     onExecutionStatus?: (status: boolean) => void;
     onlyEstimate?: boolean;
-    triggerElement: React.MutableRefObject<HTMLElement> | React.RefObject<HTMLElement>;
   };
 
 export type SendERC20TransactionProps = {
@@ -43,6 +43,13 @@ export type SendERC20TransactionProps = {
   value: string;
   approveFirst?: boolean;
 };
+
+export interface SendButtonProps {
+  containerClassName?: string;
+  buttonContainerClassName?: string;
+  buttonClassName?: string;
+  buttonTitle?: string;
+}
 
 export type SendERC20InputProps = {
   value: string;

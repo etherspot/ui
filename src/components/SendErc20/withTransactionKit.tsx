@@ -37,7 +37,6 @@ import { SendERC20Props } from '../../models/Transactions';
  * @property {number} chainId - The Ethereum chain ID.
  * @property {ethers.Wallet} provider - The Ethereum provider.
  * @property {number} decimals - decimals for ERC20 token(using for convert number to bignumber).
- * @property {React.ReactNode | React.RefObject<HTMLElement>} [triggerElement] - Trigger element for UI interactions.
  */
 
 /**
