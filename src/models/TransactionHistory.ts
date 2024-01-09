@@ -20,8 +20,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import './index.css';
 
-export { default as SendNativeToken } from './components/SendNativeToken';
-export { default as TokenSelector } from './components/TokenSelector';
-export { default as TransactionHistory } from './components/TransactionHistory';
+import React from 'react';
+
+// Local
+import type { BasicProps } from './Common';
+
+export type TransactionHistoryProps = BasicProps & TransactionHistoryProps;
+
+export interface TransactionHistoryProps {
+  // eslint-disable-next-line no-unused-vars
+  debug?: boolean;
+  linkToBlockExplorer?: boolean;
+  limit?: number;
+  showDateTime?: boolean;
+  showTextualTransactionDirection?: boolean;
+  dateTimeDisplayPattern?: string;
+  unorderedListClassName?: React.CSSProperties;
+  listItemClassName?: React.CSSProperties;
+  directionalArrowClassName?: React.CSSProperties;
+  transferAmountClassName?: React.CSSProperties;
+  tokenSymbolClassName?: React.CSSProperties;
+  addressClassName?: React.CSSProperties;
+  datetimeClassName?: React.CSSProperties;
+  className?: string;
+  loadingText?: string;
+  noTransactionText?: string;
+}

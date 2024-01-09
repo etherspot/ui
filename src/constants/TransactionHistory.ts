@@ -20,8 +20,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import './index.css';
 
-export { default as SendNativeToken } from './components/SendNativeToken';
-export { default as TokenSelector } from './components/TokenSelector';
-export { default as TransactionHistory } from './components/TransactionHistory';
+export const LOADING = 'loading…';
+export const NO_TRANSACTION = 'Not found any transactions';

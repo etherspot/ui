@@ -20,8 +20,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import './index.css';
 
-export { default as SendNativeToken } from './components/SendNativeToken';
-export { default as TokenSelector } from './components/TokenSelector';
-export { default as TransactionHistory } from './components/TransactionHistory';
+import React from 'react';
+import { EtherspotTransactionKit } from '@etherspot/transaction-kit';
+
+// Types
+import type { TransactionHistoryProps } from '../../models/TransactionHistory';
+
+// Local
+import TransactionHistoryList from './TransactionHistory';
+
+/**
+ * @name TransactionHistory
+ * @description TransactionHistory component provides a UI for list of transactions for given account and chain. 
+ * Shows tokens as per chainId. This UI is customized UI, everyone can have do any customization and applying styling as per need'
+ * @param {TransactionHistoryProps} props - The props for the component
+ * @returns {React.ReactElement} The rendered component.
+ */
+
+const TransactionHistory = (props: TransactionHistoryProps) => {
+  const { provider, chainId, ...rest } = props;
+
+  return (
+    <EtherspotTransactionKit provider={provider} chainId={chainId}>
+      <TransactionHistoryList {...rest} />
+    </EtherspotTransactionKit>
+  );
+};
+
+export default TransactionHistory;

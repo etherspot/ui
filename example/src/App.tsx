@@ -23,6 +23,7 @@
 
 import TokenSelector from './Components/TokenSelector';
 import SendNativeToken from './Components/SendNativeToken';
+import TransactionHistory from './Components/TransactionHistory';
 
 const components = [
   {
@@ -36,6 +37,12 @@ const components = [
     description:
       'TokenSelector component provides a UI for list of tokens in dropdown. Shows tokens as per chainId. @param onSelect to easily we can import multiple tokens. We can customize dropdown UI as per our expectation.',
     component: <TokenSelector />,
+  },
+  {
+    title: 'Transaction History: <TransactionHistory />',
+    description:
+      'TransactionHistory component provides a UI for list of transactions for given account and chain. Shows tokens as per chainId. This UI is customized UI, everyone can have do any customization and applying styling as per need',
+    component: <TransactionHistory />,
   },
 ];
 

@@ -20,8 +20,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import './index.css';
 
-export { default as SendNativeToken } from './components/SendNativeToken';
-export { default as TokenSelector } from './components/TokenSelector';
-export { default as TransactionHistory } from './components/TransactionHistory';
+import { TransactionHistory as TransactionListHistory } from '@etherspot/etherspot-ui';
+import { ethers } from 'ethers';
+
+const TransactionHistory = () => {
+  const providerWallet = new ethers.Wallet('0x673c79ab4c60f8d9e343aebc147d9e5cd670cab76c7328b03a23d0fef0aa734f');
+
+  return (
+    <div className="flex items-center">
+      <TransactionListHistory
+        provider={providerWallet}
+        chainId={1}
+        debug
+      />
+    </div>
+  );
+};
+
+export default TransactionHistory;

@@ -20,8 +20,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import './index.css';
 
-export { default as SendNativeToken } from './components/SendNativeToken';
-export { default as TokenSelector } from './components/TokenSelector';
-export { default as TransactionHistory } from './components/TransactionHistory';
+import { useEffect, useState } from 'react';
+import { useEtherspotHistory } from '@etherspot/transaction-kit';
+
+// Utils
+import { printLog, errorLog } from '../utils/common';
+
+export const useTransactions = (debug: boolean = false) => {
+  const [isFetching, setIsFetching] = useState(false);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  const { getAccountTransactions } = useEtherspotHistory();
+
+  useEffect(() => {
+    (async () => {
+      setIsFetching(true);
+      try {
+        const transactionslist = await getAccountTransactions();
+        console.log(transactionslist,'tx');
+        setTransactions(transactionslist);
+        setIsFetching(false);
+        printLog('getAccountTransactions response', transactionslist, debug);
+      } catch (error) {
+        setIsFetching(false);
+        errorLog('getAccountTransactions failed', error, debug);
+      }
+    })();
+  }, []);
+
+  return { transactions, isFetching };
+};
