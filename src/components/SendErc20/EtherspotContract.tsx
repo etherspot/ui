@@ -22,27 +22,39 @@
  */
 
 import React from 'react';
-import { EtherspotTokenTransferTransaction } from '@etherspot/transaction-kit';
+import { EtherspotContractTransaction } from '@etherspot/transaction-kit';
 import { isEmpty } from 'lodash';
+import { utils } from 'ethers';
 
 // Utils
 import { erc20ValidationMessage } from '../../utils/validation';
+import { parseBigNumber } from '../../utils/bigNumber';
 
 // Types
 import type { SendERC20TransactionProps } from '../../models/Transactions';
 
+// Abi
+import erc20Abi from '../../abi/erc20.json';
+
 /**
- * @name TokenTransferTransaction
- * @description: The following <EtherspotTokenTransferTransaction />
+ * @name EtherspotContract
+ * @description: The following <EtherspotContract />
     component will transfer [value] [token] from the built-in
     Etherspot Smart Wallet account to the receiverAddress.
  * @param {SendERC20TransactionProps} props - The props for the component
  * @returns {React.ReactElement} The rendered component.
  */
-function TokenTransferTransaction(props: SendERC20TransactionProps) {
-  if (!isEmpty(erc20ValidationMessage(props))) return null;
+function EtherspotContract(props: SendERC20TransactionProps) {
+  if (!isEmpty(erc20ValidationMessage(props)) || !parseBigNumber(props.value)?.gt('0.0')) return null;
 
-  return <EtherspotTokenTransferTransaction {...props} />;
+  return (
+    <EtherspotContractTransaction
+      contractAddress={props.tokenAddress}
+      abi={erc20Abi}
+      methodName={'transfer'}
+      params={[props.receiverAddress, utils.parseEther(props.value)]}
+    />
+  );
 }
 
-export default TokenTransferTransaction;
+export default EtherspotContract;

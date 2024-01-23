@@ -33,7 +33,7 @@ import { errorLog } from '../../utils/common';
 import { erc20ValidationMessage } from '../../utils/validation';
 
 // Local
-import TokenTransferTransaction from './TokenTransferTransaction';
+import EtherspotContract from './EtherspotContract';
 import withTransactionKit from './withTransactionKit';
 import ApprovalTransaction from './ApprovalTransaction';
 import Erc20Input from './Erc20Input';
@@ -93,16 +93,25 @@ const SendErc20 = (props: SendERC20Props) => {
        * Any transaction that is intended to be sent to the blockchain must be estimated first. 
          The estimation function performs several checks including cost estimation and transaction validity. This method must always be called before we send, otherwise the send method will return an error.
        */
-      const estimatedResponse = await estimate();
-      onEstimated && onEstimated(estimatedResponse);
+      let estimatedResponse;
+      try {
+        estimatedResponse = await estimate();
+        onEstimated && onEstimated(estimatedResponse);
+      } catch (e) {
+        errorLog('Estimate failed!', e, debug);
+      }
 
       if (!isEmpty(estimatedResponse) && !onlyEstimate) {
         /**
          * The send function simply sends all the EtherspotBatches, 
            which contain all EtherspotBatch and EtherspotTransaction components to the blockchain via the Etherspot platform. 
         */
-        const response = await send();
-        onSent && onSent(response);
+        try {
+          const response = await send();
+          onSent && onSent(response);
+        } catch (e) {
+          errorLog('Send failed!', e, debug);
+        }
       }
 
       setIsEstimate(false);
@@ -118,7 +127,7 @@ const SendErc20 = (props: SendERC20Props) => {
     <div className={containerClassName}>
       <ApprovalTransaction {...props} />
 
-      <TokenTransferTransaction {...props} />
+      <EtherspotContract {...props} />
 
       <Erc20Input {...props} handleEnterPress={onEnterPress} />
 

@@ -35,13 +35,13 @@ const SendErc20Token = () => {
       <SendErc20
         disableSendOnEnter
         approveFirst
-        chainId={1}
+        chainId={80001}
         provider={providerWallet}
         value={inputValue}
         onChangeValue={setInputValue}
-        decimals={9}
-        tokenAddress={'0xE17f017475a709De58E976081eB916081ff4c9d5'}
-        receiverAddress={'0x0493b9a21dE42546B2E3687Da683D0B7B6ec2180'}
+        decimals={18}
+        tokenAddress={'0xd426c19d6087a716c0e73e8fbd852203047463f0'}
+        receiverAddress={'0x77ac7B8b87DB882b8319E28988f12153140dB234'}
         className="block rounded-md border-0 px-3.5 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
         buttonClassName="flex py-2 rounded w-36 pt-100 text-black"
         onEstimated={(res: any) => console.log('ON Estimates', res)}
