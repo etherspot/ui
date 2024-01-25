@@ -36,10 +36,10 @@ export const isValidEthereumAddress = (address: string | undefined): boolean => 
 export const erc20ValidationMessage = (props: SendERC20TransactionProps): string => {
   const { tokenAddress, receiverAddress, value } = props;
   if (!isValidEthereumAddress(tokenAddress)) {
-    return 'Token addess is not valid!';
+    return 'Token address is not valid!';
   }
   if (!isValidEthereumAddress(receiverAddress)) {
-    return 'Receiver addess is not valid!';
+    return 'Receiver address is not valid!';
   }
   if (isEmpty(value)) {
     return 'Please enter value!';

@@ -55,7 +55,7 @@ export type SendERC20InputProps = {
   value: string;
   // eslint-disable-next-line no-unused-vars
   onChangeValue: (value: string) => void;
-  decimals: number;
+  decimals?: number;
   className?: string;
   disableSendOnEnter?: boolean;
   handleEnterPress?: () => void;

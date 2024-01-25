@@ -86,41 +86,45 @@ const SendErc20 = (props: SendERC20Props) => {
     // Return if the token address, receiver address or value not valid.
     if (!isEmpty(erc20ValidationMessage(props)) || isEstimate) return;
 
-    try {
-      setIsEstimate(true);
-      onExecutionStatus && onExecutionStatus(true);
-      /**
+    setIsEstimate(true);
+    onExecutionStatus && onExecutionStatus(true);
+    /**
        * Any transaction that is intended to be sent to the blockchain must be estimated first. 
-         The estimation function performs several checks including cost estimation and transaction validity. This method must always be called before we send, otherwise the send method will return an error.
+         The estimation function performs several checks including cost estimation and transaction validity. 
+         This method must always be called before we send, otherwise the send method will return an error.
        */
-      let estimatedResponse;
-      try {
-        estimatedResponse = await estimate();
-        onEstimated && onEstimated(estimatedResponse);
-      } catch (e) {
-        errorLog('Estimate failed!', e, debug);
-      }
-
-      if (!isEmpty(estimatedResponse) && !onlyEstimate) {
-        /**
-         * The send function simply sends all the EtherspotBatches, 
-           which contain all EtherspotBatch and EtherspotTransaction components to the blockchain via the Etherspot platform. 
-        */
-        try {
-          const response = await send();
-          onSent && onSent(response);
-        } catch (e) {
-          errorLog('Send failed!', e, debug);
-        }
-      }
-
-      setIsEstimate(false);
-      onExecutionStatus && onExecutionStatus(false);
+    let estimatedResponse;
+    try {
+      estimatedResponse = await estimate();
+      onEstimated && onEstimated(estimatedResponse);
     } catch (e) {
-      setIsEstimate(false);
-      onExecutionStatus && onExecutionStatus(false);
-      errorLog('Send or Estimate failed!', e, debug);
+      errorLog(
+        'Etherspot UI: Sorry there was an error whilst estimating your transaction. Please visit our documentation for more information: https://etherspot.fyi',
+        e,
+        debug,
+      );
     }
+
+    if (!isEmpty(estimatedResponse) && !onlyEstimate) {
+      /**
+         * The send function simply sends all the EtherspotBatches, 
+           which contain all EtherspotBatch and EtherspotTransaction 
+           components to the blockchain via the Etherspot platform. 
+        */
+      try {
+        const response = await send();
+        onSent && onSent(response);
+      } catch (e) {
+        errorLog(
+          'Etherspot UI: Sorry there was an error whilst sending your transaction. Please visit our documentation for more information: https://etherspot.fyi',
+          e,
+          debug,
+        );
+      }
+    }
+
+    setIsEstimate(false);
+    onExecutionStatus && onExecutionStatus(false);
   };
 
   return (

@@ -30,7 +30,7 @@ export function normalizeRawValue(input: string, decimals: number = 18): string 
 
   const maxDecimals = decimals === 6 ? 4 : decimals > 15 ? 15 : decimals;
 
-  // Trip leading and trailing spaces
+  // Strip leading and trailing spaces
   result = result.trim();
 
   // Trim leading zeros, but allow '0' & '0.'

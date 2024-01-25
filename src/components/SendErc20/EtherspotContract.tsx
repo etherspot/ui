@@ -33,6 +33,9 @@ import { parseBigNumber } from '../../utils/bigNumber';
 // Types
 import type { SendERC20TransactionProps } from '../../models/Transactions';
 
+// ABI
+import { ERC20ABI } from '../../data/abis/ERC20';
+
 /**
  * @name EtherspotContract
  * @description: The following <EtherspotContract />
@@ -47,7 +50,7 @@ function EtherspotContract(props: SendERC20TransactionProps) {
   return (
     <EtherspotContractTransaction
       contractAddress={props.tokenAddress}
-      abi={TransferERC20Abi}
+      abi={ERC20ABI}
       methodName={'transfer'}
       params={[props.receiverAddress, utils.parseEther(props.value)]}
     />
@@ -55,29 +58,3 @@ function EtherspotContract(props: SendERC20TransactionProps) {
 }
 
 export default EtherspotContract;
-
-const TransferERC20Abi = [
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_to',
-        type: 'address',
-      },
-      {
-        name: '_value',
-        type: 'uint256',
-      },
-    ],
-    name: 'transfer',
-    outputs: [
-      {
-        name: '',
-        type: 'bool',
-      },
-    ],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-];

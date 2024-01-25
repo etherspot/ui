@@ -68,14 +68,14 @@ function Erc20Input(props: SendERC20InputProps & SendERC20TransactionProps) {
       <input
         type="text"
         name="value"
-        id="value"
+        id={`etherspot-ui-erc-20-input`}
         value={value}
         onChange={onChange}
         className={className}
         onKeyDown={onKeyDown}
-        placeholder="0.00"
+        placeholder="0"
       />
-      <p className={`sm:text-sm ${errorMessageClassName}`}>{errorMessage}</p>
+      <p className={errorMessageClassName}>{errorMessage}</p>
     </>
   );
 }

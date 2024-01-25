@@ -44,6 +44,7 @@ const SendErc20Token = () => {
         receiverAddress={'0x77ac7B8b87DB882b8319E28988f12153140dB234'}
         className="block rounded-md border-0 px-3.5 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
         buttonClassName="flex py-2 rounded w-36 pt-100 text-black"
+        errorMessageClassName="sm:text-sm "
         onEstimated={(res: any) => console.log('ON Estimates', res)}
         onExecutionStatus={(status) => console.log('ON Execution', status)}
         onSent={(sentRes) => console.log('ON Sent', sentRes)}
