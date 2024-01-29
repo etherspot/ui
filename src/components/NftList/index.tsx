@@ -20,8 +20,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import './index.css';
 
-export { default as SendNativeToken } from './components/SendNativeToken';
-export { default as TokenSelector } from './components/TokenSelector';
-export { default as NftList } from './components/NftList';
+import React from 'react';
+import { EtherspotTransactionKit } from '@etherspot/transaction-kit';
+
+// Types
+import type { NftListProps } from '../../models/NftList';
+
+// Local
+import Nfts from './NftList';
+
+// Required Props for the NftList component
+/**
+ * @typedef {Object} NftListProps - Props for the NftList component.
+ * @property {number} chainId - The Ethereum chain ID.
+ * @property {ethers.Wallet} provider - The Ethereum provider.
+ */
+
+/**
+ * @name NftList
+ * @description NftList component provides list of NFTs for either their own account,
+   or another account address that they can provide.
+   The Etherspot UI component will show a unordered list of NFTs and the data associated with the NFT.
+ * @param {NftListProps} props - The props for the component
+ * @returns {React.ReactElement} The rendered component.
+ */
+const NftList = (props: NftListProps) => {
+  const { provider, chainId } = props;
+
+  return (
+    <EtherspotTransactionKit provider={provider} chainId={chainId}>
+      <Nfts {...props} />
+    </EtherspotTransactionKit>
+  );
+};
+
+export default NftList;

@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2024 Etherspot
+ * Copyright (c) 2023 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,20 +21,21 @@
  * SOFTWARE.
  */
 
+import React from 'react';
+import { jest } from '@jest/globals';
+import { render, cleanup } from '@testing-library/react';
 import { ethers } from 'ethers';
 
-export type BasicProps = {
-  chainId: number;
-  provider: ethers.Wallet;
-  debug?: boolean;
-};
+// Local
+import NftList from '../src/components/NftList';
 
-export interface LoaderTextProps {
-  isVisible: boolean;
-  loadingText?: string;
-}
+jest.useFakeTimers();
+afterEach(cleanup);
 
-export interface NoDataTextProps {
-  isVisible: boolean;
-  text: string;
-}
+const ethersProvider = new ethers.providers.JsonRpcProvider('http://localhost:3000', 'goerli'); // replace with your node's RPC URL
+const provider = ethers.Wallet.createRandom().connect(ethersProvider);
+
+test('NftList should render correctly', () => {
+  const rendered = render(<NftList chainId={5} provider={provider} />);
+  expect(rendered).toMatchSnapshot();
+});
