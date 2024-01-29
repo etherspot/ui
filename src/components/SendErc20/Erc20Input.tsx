@@ -68,7 +68,7 @@ function Erc20Input(props: SendERC20InputProps & SendERC20TransactionProps) {
       <input
         type="text"
         name="value"
-        id={`etherspot-ui-erc-20-input`}
+        id={`etherspot-ui-erc-20-${Math.random().toString()}`}
         value={value}
         onChange={onChange}
         className={className}
