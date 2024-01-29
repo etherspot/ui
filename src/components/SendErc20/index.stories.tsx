@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2023 Etherspot
+ * Copyright (c) 2024 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,20 +21,29 @@
  * SOFTWARE.
  */
 
-export const printLog = (category: string, message: unknown, debug: boolean = false) => {
-  if (!debug) return;
-  console.log(`${category}: `, message);
+import React from 'react';
+import { Meta, StoryFn } from '@storybook/react';
+
+// Types
+import { SendERC20Props } from '../../models/Transactions';
+
+// Local
+import SendErc20 from './';
+
+export default {
+  title: 'Components/SendErc20',
+  component: SendErc20,
+} as Meta;
+
+const Template: StoryFn<SendERC20Props> = (args) => <SendErc20 {...args} />;
+
+export const SendERC20 = Template.bind({});
+SendERC20.args = {
+  disableSendOnEnter: false,
+  approveFirst: true,
+  chainId: 1,
+  value: '',
+  decimals: 9,
+  tokenAddress: '',
+  receiverAddress: '',
 };
-
-export const errorLog = (category: string, error: unknown, debug = false) => {
-  if (!debug) return;
-  console.error(`${category}: `, error);
-};
-
-// Accepts values like '.', '0.', etc
-export const numberInProgressRegex = /^\d*\.?\d*$/;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function areEqual(first: any, second: any) {
-  return (first == null && second == null) || (first != null && second != null && first.eq(second));
-}
