@@ -24,6 +24,7 @@
 import TokenSelector from './Components/TokenSelector';
 import SendNativeToken from './Components/SendNativeToken';
 import NftList from './Components/NftList';
+import SendErc20Token from './Components/SendErc20';
 
 const components = [
   {
@@ -31,6 +32,12 @@ const components = [
     description:
       'NftList component provides list of NFTs for either their own account, or another account address that they can provide. The Etherspot UI component will show a unordered list of NFTs and the data associated with the NFT.',
     component: <NftList />,
+  },
+  {
+    title: 'Send ERC-20 Token: <SendErc20 />',
+    description:
+      'Using SendErc20 component to we can send Erc20 token. For sending token need tokenAddress, receiverAddress and value.',
+    component: <SendErc20Token />,
   },
   {
     title: 'Send Native Token: <SendNativeToken />',

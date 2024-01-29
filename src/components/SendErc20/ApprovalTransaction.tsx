@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2023 Etherspot
+ * Copyright (c) 2024 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,20 +21,32 @@
  * SOFTWARE.
  */
 
-export const printLog = (category: string, message: unknown, debug: boolean = false) => {
-  if (!debug) return;
-  console.log(`${category}: `, message);
-};
+import React from 'react';
+import { EtherspotApprovalTransaction } from '@etherspot/transaction-kit';
+import { isEmpty } from 'lodash';
 
-export const errorLog = (category: string, error: unknown, debug = false) => {
-  if (!debug) return;
-  console.error(`${category}: `, error);
-};
+// Utils
+import { erc20ValidationMessage } from '../../utils/validation';
 
-// Accepts values like '.', '0.', etc
-export const numberInProgressRegex = /^\d*\.?\d*$/;
+// Types
+import type { SendERC20TransactionProps } from '../../models/Transactions';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function areEqual(first: any, second: any) {
-  return (first == null && second == null) || (first != null && second != null && first.eq(second));
+/**
+ * @name ApprovalTransaction
+ * @description: The following block is the first transaction in this batch
+    of transactions, and instructs Etherspot to set a spending
+    limit for the Smart Contract located at `receiverAddress`
+    to be allowed to spend the token located at `tokenAddress`
+    up to the amount specified in `value`.
+ * @param {SendERC20TransactionProps} props - The props for the component
+ * @returns {React.ReactElement} The rendered component.
+ */
+function ApprovalTransaction(props: SendERC20TransactionProps) {
+  const { approveFirst } = props;
+
+  if (!isEmpty(erc20ValidationMessage(props)) || !approveFirst) return null;
+
+  return <EtherspotApprovalTransaction {...props} />;
 }
+
+export default ApprovalTransaction;
