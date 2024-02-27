@@ -22,28 +22,33 @@
  */
 
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import { EtherspotTransaction } from '@etherspot/transaction-kit';
+import { isEmpty } from 'lodash';
+
+// Utils
+import { nativeTokenValidationMessage } from '../../utils/validation';
+import { parseBigNumber } from '../../utils/bigNumber';
 
 // Types
-import { SendNativeTokenProps } from '../../models/Transactions';
+import type { SendNativeTokenTransactionProps } from '../../models/Transactions';
 
-// Local
-import SendNativeTokenComponent from './'; 
+/**
+ * @name EtherspotTokenTransaction
+ * @description: The following <EtherspotTokenTransaction />
+    component will transfer [value] [token] from the built-in
+    Etherspot Wallet account to the receiverAddress.
+ * @param {SendNativeTokenTransactionProps} props - The props for the component
+ * @returns {React.ReactElement} The rendered component.
+ */
+function EtherspotTokenTransaction(props: SendNativeTokenTransactionProps) {
+  if (!isEmpty(nativeTokenValidationMessage(props)) || !parseBigNumber(props.value)?.gt('0.0')) return null;
 
-export default {
-  title: 'Components/SendNativeToken',
-  component: SendNativeTokenComponent,
-} as Meta;
+  return (
+    <EtherspotTransaction
+      to={props.receiverAddress}
+      value={props.value}
+    />
+  );
+}
 
-const Template: StoryFn<SendNativeTokenProps> = (args) => <SendNativeTokenComponent {...args} />;
-
-export const SendNativeToken = Template.bind({});
-SendNativeToken.args = {
-  disableSendOnEnter: false,
-  approveFirst: true,
-  chainId: 1,
-  value: '',
-  decimals: 9,
-  tokenAddress: '',
-  receiverAddress: '',
-};
+export default EtherspotTokenTransaction;

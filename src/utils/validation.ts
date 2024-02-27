@@ -25,12 +25,23 @@ import { ethers } from 'ethers';
 import { isEmpty } from 'lodash';
 
 // Types
-import type { SendERC20TransactionProps } from '../models/Transactions';
+import type { SendERC20TransactionProps, SendNativeTokenTransactionProps } from '../models/Transactions';
 
 export const isValidEthereumAddress = (address: string | undefined): boolean => {
   if (!address) return false;
 
   return ethers.utils.isAddress(address);
+};
+
+export const nativeTokenValidationMessage = (props: SendNativeTokenTransactionProps): string => {
+  const { receiverAddress, value } = props;
+  if (!isValidEthereumAddress(receiverAddress)) {
+    return 'Receiver address is not valid!';
+  }
+  if (isEmpty(value)) {
+    return 'Please enter value!';
+  }
+  return '';
 };
 
 export const erc20ValidationMessage = (props: SendERC20TransactionProps): string => {

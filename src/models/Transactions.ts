@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2023 Etherspot
+ * Copyright (c) 2024 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,17 @@ export type SendERC20Props = BasicProps &
     onlyEstimate?: boolean;
   };
 
+export type SendERC20InputProps = {
+  value: string;
+  // eslint-disable-next-line no-unused-vars
+  onChangeValue: (value: string) => void;
+  decimals?: number;
+  className?: string;
+  disableSendOnEnter?: boolean;
+  handleEnterPress?: () => void;
+  errorMessageClassName?: string;
+};
+
 export type SendERC20TransactionProps = {
   tokenAddress: string;
   receiverAddress: string;
@@ -51,7 +62,7 @@ export interface SendButtonProps {
   buttonTitle?: string;
 }
 
-export type SendERC20InputProps = {
+export type SendNativeTokenInputProps = {
   value: string;
   // eslint-disable-next-line no-unused-vars
   onChangeValue: (value: string) => void;
@@ -61,3 +72,28 @@ export type SendERC20InputProps = {
   handleEnterPress?: () => void;
   errorMessageClassName?: string;
 };
+
+export type SendNativeTokenTransactionProps = {
+  receiverAddress: string;
+  value: string;
+};
+
+export interface SendNativeTokenButtonProps {
+  containerClassName?: string;
+  buttonContainerClassName?: string;
+  buttonClassName?: string;
+  buttonTitle?: string;
+}
+
+export type SendNativeTokenProps = BasicProps &
+    SendNativeTokenTransactionProps &
+  SendNativeTokenInputProps &
+  SendNativeTokenButtonProps & {
+    // eslint-disable-next-line no-unused-vars
+    onEstimated?: (estimated: EstimatedBatch[]) => void;
+    // eslint-disable-next-line no-unused-vars
+    onSent?: (sentBatches: ISentBatches[]) => void;
+    // eslint-disable-next-line no-unused-vars
+    onExecutionStatus?: (status: boolean) => void;
+    onlyEstimate?: boolean;
+  };
