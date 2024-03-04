@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2024 Etherspot
+ * Copyright (c) 2023 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,20 +21,27 @@
  * SOFTWARE.
  */
 
+import { NftList as Nfts } from '@etherspot/etherspot-ui';
 import { ethers } from 'ethers';
 
-export type BasicProps = {
-  chainId: number;
-  provider: ethers.Wallet;
-  debug?: boolean;
+const NftList = () => {
+  const providerWallet = new ethers.Wallet('0x673c79ab4c60f8d9e343aebc147d9e5cd670cab76c7328b03a23d0fef0aa734f');
+
+  return (
+    <div className="flex items-center border">
+      <Nfts 
+        provider={providerWallet} 
+        chainId={1} 
+        nftImageClassName="w-5 h-5 rounded " 
+        unorderedListIterableContainerClassName= "border-2" 
+        listItemContainerClassName="py-2 px-4" 
+        nftMediaClassName="border border-gray-200" 
+        nftNameClassName="border border-gray-200"
+        nftTokenIdClassName="border border-gray-200"
+        nftTokenAmountClassName="border border-gray-200" 
+      />
+    </div>
+  );
 };
 
-export interface LoaderTextProps {
-  isVisible: boolean;
-  loadingText?: string;
-}
-
-export interface NoDataTextProps {
-  isVisible: boolean;
-  text: string;
-}
+export default NftList;

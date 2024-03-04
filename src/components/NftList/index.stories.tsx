@@ -21,20 +21,27 @@
  * SOFTWARE.
  */
 
+import React from 'react';
+import { Meta, StoryFn } from '@storybook/react';
 import { ethers } from 'ethers';
 
-export type BasicProps = {
-  chainId: number;
-  provider: ethers.Wallet;
-  debug?: boolean;
+// Types
+import { NftListProps } from '../../models/NftList';
+
+// Local
+import Nfts from './';
+
+export default {
+  title: 'Components/NftList',
+  component: Nfts,
+} as Meta;
+
+const providerWallet = new ethers.Wallet('0x673c79ab4c60f8d9e343aebc147d9e5cd670cab76c7328b03a23d0fef0aa734f');
+
+const Template: StoryFn<NftListProps> = (args) => <Nfts {...args} />;
+
+export const NftList = Template.bind({});
+NftList.args = {
+  chainId: 1,
+  provider: providerWallet,
 };
-
-export interface LoaderTextProps {
-  isVisible: boolean;
-  loadingText?: string;
-}
-
-export interface NoDataTextProps {
-  isVisible: boolean;
-  text: string;
-}

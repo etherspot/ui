@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2024 Etherspot
+ * Copyright (c) 2023 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,20 +21,24 @@
  * SOFTWARE.
  */
 
-import { ethers } from 'ethers';
+import React from 'react';
 
-export type BasicProps = {
-  chainId: number;
-  provider: ethers.Wallet;
-  debug?: boolean;
+// Constants
+import { LOADING } from '../../constants/TokenSelector';
+
+// Types
+import type { NoDataTextProps, LoaderTextProps } from '../../models/Common';
+
+export const LoaderText = ({ isVisible, loadingText = LOADING }: LoaderTextProps) => {
+  if (!isVisible) return null;
+
+  return (
+    <div className="w-full h-full flex" style={{ alignItems: 'center', justifyContent: 'center' }}>
+      <text>{loadingText}</text>
+    </div>
+  );
 };
 
-export interface LoaderTextProps {
-  isVisible: boolean;
-  loadingText?: string;
-}
-
-export interface NoDataTextProps {
-  isVisible: boolean;
-  text: string;
-}
+export const NoDataText = ({ isVisible, text }: NoDataTextProps) => {
+  return <LoaderText isVisible={isVisible} loadingText={text} />;
+};

@@ -20,21 +20,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
+import React from 'react';
+import { jest } from '@jest/globals';
+import { render, cleanup } from '@testing-library/react';
 import { ethers } from 'ethers';
 
-export type BasicProps = {
-  chainId: number;
-  provider: ethers.Wallet;
-  debug?: boolean;
-};
+// Local
+import NftList from '../src/components/NftList';
 
-export interface LoaderTextProps {
-  isVisible: boolean;
-  loadingText?: string;
-}
+jest.useFakeTimers();
+afterEach(cleanup);
 
-export interface NoDataTextProps {
-  isVisible: boolean;
-  text: string;
-}
+const ethersProvider = new ethers.providers.JsonRpcProvider('http://localhost:3000', 'goerli'); 
+const provider = ethers.Wallet.createRandom().connect(ethersProvider);
+
+test('should render NftList correctly', () => {
+  const rendered = render(<NftList chainId={1} provider={provider} />);
+  expect(rendered).toMatchSnapshot();
+});

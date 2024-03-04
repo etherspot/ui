@@ -8,6 +8,7 @@ import { terser } from 'rollup-plugin-terser';
 import dotenv from 'dotenv';
 import postcss from 'rollup-plugin-postcss';
 import tailwindcss from 'tailwindcss';
+import json from '@rollup/plugin-json';
 dotenv.config();
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -52,6 +53,7 @@ export default [
         },
       }),
       commonjs(),
+      json(),
       typescript({
         sourceMap: !isProduction,
         tsconfig: './tsconfig.json',

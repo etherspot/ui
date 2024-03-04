@@ -23,9 +23,16 @@
 
 import TokenSelector from './Components/TokenSelector';
 import SendNativeToken from './Components/SendNativeToken';
+import NftList from './Components/NftList';
 import SendErc20Token from './Components/SendErc20';
 
 const components = [
+  {
+    title: 'NFT List: <NftList />',
+    description:
+      'NftList component provides list of NFTs for either their own account, or another account address that they can provide. The Etherspot UI component will show a unordered list of NFTs and the data associated with the NFT.',
+    component: <NftList />,
+  },
   {
     title: 'Send ERC-20 Token: <SendErc20 />',
     description:
@@ -73,13 +80,13 @@ export default App;
 
 const style: any = {
   container: {
-    backgroundColor: 'lightblue',
+    backgroundImage: 'linear-gradient(to right, black, #392d91)',
     flexDirection: 'column',
     overflowY: 'scroll',
   },
   listMainContainer: {
-    backgroundImage: 'linear-gradient(to right, lightblue, violet)',
-    borderColor: 'violet',
+    backgroundImage: 'linear-gradient(to right, white, white)',
+    borderColor: '#ffffff70',
     borderWidth: '1px',
     width: '96%',
     minHeight: '20px',
@@ -103,6 +110,7 @@ const style: any = {
     marginTop: '20px',
     fontSize: '40px',
     fontWeight: 'bold',
+    color: 'white',
   },
   componentTitle: { fontSize: '24px', fontWeight: 'bold' },
   descriptionContainer: {
