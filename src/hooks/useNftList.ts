@@ -44,8 +44,7 @@ export const useNftList = ({ chainId, accountAddress, debug = false }: NftListPr
       setIsFetching(true);
       try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        //const nfts: any = await getAccountNfts(accountAddress);
-        const nfts: any = nftlist;
+        const nfts: any = await getAccountNfts(accountAddress, chainId);
         setNftList(nfts);
         setIsFetching(false);
         printLog('Etherspot UI: your NFTs', nfts, debug);

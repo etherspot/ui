@@ -26,7 +26,7 @@
   "author": "Etherspot Team",
   "license": "MIT",
   "dependencies": {
-    "@etherspot/transaction-kit": "0.6.11",
+    "@etherspot/transaction-kit": "0.10.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
     "@tippyjs/react": "4.2.6",

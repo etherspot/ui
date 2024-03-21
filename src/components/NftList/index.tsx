@@ -49,7 +49,12 @@ const NftList = (props: NftListProps) => {
   const { provider, chainId } = props;
 
   return (
-    <EtherspotTransactionKit provider={provider} chainId={chainId}>
+    // pass static key value for testing purpose 
+    <EtherspotTransactionKit 
+        provider={provider} 
+        chainId={chainId} 
+        dataApiKey='eyJvcmciOiI2NTIzZjY5MzUwOTBmNzAwMDFiYjJkZWIiLCJpZCI6IjMxMDZiOGY2NTRhZTRhZTM4MGVjYjJiN2Q2NDMzMjM4IiwiaCI6Im11cm11cjEyOCJ9' 
+        bundlerApiKey='eyJvcmciOiI2NTIzZjY5MzUwOTBmNzAwMDFiYjJkZWIiLCJpZCI6IjMxMDZiOGY2NTRhZTRhZTM4MGVjYjJiN2Q2NDMzMjM4IiwiaCI6Im11cm11cjEyOCJ9'>
       <Nfts {...props} />
     </EtherspotTransactionKit>
   );
