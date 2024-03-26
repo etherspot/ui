@@ -35,6 +35,8 @@ import Nfts from './NftList';
  * @typedef {Object} NftListProps - Props for the NftList component.
  * @property {number} chainId - The Ethereum chain ID.
  * @property {ethers.Wallet} provider - The Ethereum provider.
+ * @property {string} dataApiKey - The data api key for data services.
+ * @property {string} bundlerApiKey - The bundler api key for bundler.
  */
 
 /**
@@ -46,13 +48,14 @@ import Nfts from './NftList';
  * @returns {React.ReactElement} The rendered component.
  */
 const NftList = (props: NftListProps) => {
-  const { provider, chainId } = props;
-
+  const { provider, chainId, dataApiKey, bundlerApiKey } = props;
+  
   return (
-    // pass static key value for testing purpose 
     <EtherspotTransactionKit 
         provider={provider} 
         chainId={chainId} 
+        dataApiKey={dataApiKey} 
+        bundlerApiKey={bundlerApiKey}
     >
       <Nfts {...props} />
     </EtherspotTransactionKit>

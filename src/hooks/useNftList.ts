@@ -30,9 +30,6 @@ import { printLog, errorLog } from '../utils/common';
 // Type
 import type { NftCollection, NftListProps } from '../models/NftList';
 
-// Mock NFT
-import { nftlist } from '../data/mock_nft.json'
-
 export const useNftList = ({ chainId, accountAddress, debug = false }: NftListProps) => {
   const [isFetching, setIsFetching] = useState(false);
   const [nftList, setNftList] = useState<NftCollection[]>([]);
@@ -45,6 +42,12 @@ export const useNftList = ({ chainId, accountAddress, debug = false }: NftListPr
       try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const nfts: any = await getAccountNfts(accountAddress, chainId);
+        if(nfts.length == 0){ // api rate limit gives blank result 
+          errorLog(
+            'Etherspot UI: Sorry there was an error whilst fetching your NFTs. Please see console',
+            debug,
+          );
+        }
         setNftList(nfts);
         setIsFetching(false);
         printLog('Etherspot UI: your NFTs', nfts, debug);
