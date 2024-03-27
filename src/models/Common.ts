@@ -27,6 +27,8 @@ export type BasicProps = {
   chainId: number;
   provider: ethers.Wallet;
   debug?: boolean;
+  dataApiKey?: string;
+  bundlerApiKey?: string;
 };
 
 export interface LoaderTextProps {

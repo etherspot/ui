@@ -45,8 +45,6 @@ export interface NftListComponentProps {
   nftNameClassName?: string;
   nftTokenIdClassName?: string;
   nftTokenAmountClassName?: string;
-  dataApiKey?: string;
-  bundlerApiKey?: string;
   onFetching?: (status: boolean) => void;
   onNFts?: (nftCollection: NftCollection[]) => void;
   CustomNFTComponent?: (nftCollection: NftCollection[]) => any;

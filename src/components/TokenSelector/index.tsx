@@ -40,10 +40,14 @@ import Dropdown from './DropDown';
  */
 
 const TokenSelector = (props: TokenSelectorProps) => {
-  const { provider, chainId, ...rest } = props;
+  const { provider, chainId, dataApiKey, bundlerApiKey, ...rest } = props;
 
   return (
-    <EtherspotTransactionKit provider={provider} chainId={chainId}>
+    <EtherspotTransactionKit 
+        provider={provider} 
+        chainId={chainId} 
+        dataApiKey={dataApiKey} 
+        bundlerApiKey={bundlerApiKey}>
       <Dropdown {...rest} />
     </EtherspotTransactionKit>
   );
