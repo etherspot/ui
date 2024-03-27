@@ -8,6 +8,7 @@ import { terser } from 'rollup-plugin-terser';
 import dotenv from 'dotenv';
 import postcss from 'rollup-plugin-postcss';
 import tailwindcss from 'tailwindcss';
+import json from '@rollup/plugin-json';
 dotenv.config();
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -52,13 +53,15 @@ export default [
         },
       }),
       commonjs(),
+      json(),
       typescript({
         sourceMap: !isProduction,
         tsconfig: './tsconfig.json',
         exclude: ['./example/**', './src/test/**'],
       }),
       replace({
-        __ETHERSPOT_PROJECT_KEY__: process.env.ETHERSPOT_PROJECT_KEY ?? '',
+       __ETHERSPOT_DATA_API_KEY__: process.env.ETHERSPOT_DATA_API_KEY ?? '',
+       __ETHERSPOT_BUNDLER_API_KEY__: process.env.ETHERSPOT_BUNDLER_API_KEY ?? '',
         preventAssignment: true,
         __ETHERSPOT_BUILDER_VERSION__: packageJson.version,
         __ETHERSPOT_SDK_VERSION__: packageJson.dependencies.etherspot,

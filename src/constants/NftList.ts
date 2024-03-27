@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (c) 2024 Etherspot
+ * Copyright (c) 2023 Etherspot
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,22 +21,4 @@
  * SOFTWARE.
  */
 
-import { ethers } from 'ethers';
-
-export type BasicProps = {
-  chainId: number;
-  provider: ethers.Wallet;
-  debug?: boolean;
-  dataApiKey?: string;
-  bundlerApiKey?: string;
-};
-
-export interface LoaderTextProps {
-  isVisible: boolean;
-  loadingText?: string;
-}
-
-export interface NoDataTextProps {
-  isVisible: boolean;
-  text: string;
-}
+export const NO_NFTS = 'No NFTs';

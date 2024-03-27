@@ -24,4 +24,5 @@ import './index.css';
 
 export { default as SendNativeToken } from './components/SendNativeToken';
 export { default as TokenSelector } from './components/TokenSelector';
+export { default as NftList } from './components/NftList';
 export { default as SendErc20 } from './components/SendErc20';

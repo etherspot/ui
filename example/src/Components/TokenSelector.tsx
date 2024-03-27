@@ -33,6 +33,8 @@ const TokenSelector = () => {
         provider={providerWallet}
         chainId={1}
         debug
+        dataApiKey={process.env.ETHERSPOT_DATA_API_KEY ?? ''}
+        bundlerApiKey={process.env.ETHERSPOT_BUNDLER_API_KEY ?? ''}
         dropdownHeight="250px"
         dropdownWidth="250px"
         onSelect={(tokens) => console.log('Selected tokens: ', tokens)}

@@ -1,0 +1,468 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render NftList correctly 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <ul>
+        <li>
+          <ul>
+            <li>
+              <img
+                alt="3856 (OptiChads #3856) image"
+                aria-hidden="true"
+                src="https://static.debank.com/image/op_nft/local_url/7be66446d630c52970e5af0a1f825790/13baef55f677a6f7bf846e54c0ad564c.png"
+              />
+            </li>
+            <li>
+              OptiChads #3856
+            </li>
+            <li>
+              3856
+            </li>
+            <li>
+              1
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <img
+                alt="69 (OptiChads #69) image"
+                aria-hidden="true"
+                src="https://static.debank.com/image/op_nft/local_url/cb0a1603c4e9610604280ef67135f326/bd13bbc0883acbee8bb5195e0b5783f8.png"
+              />
+            </li>
+            <li>
+              OptiChads #69
+            </li>
+            <li>
+              69
+            </li>
+            <li>
+              1
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <img
+                alt="5142 (ECC Domains #5142) image"
+                aria-hidden="true"
+                src="https://static.debank.com/image/op_nft/local_url/f80e4829cfdb162dbbec8de97dd69349/7aa68c9f7381a412de7df906aeff7c7f.png"
+              />
+            </li>
+            <li>
+              ECC Domains #5142
+            </li>
+            <li>
+              5142
+            </li>
+            <li>
+              1
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <img
+                alt="9563 (ECC Domains #9563) image"
+                aria-hidden="true"
+                src="https://static.debank.com/image/op_nft/local_url/aa54652fa254c55f7fdd70a9e3bf7863/1174db1796333d21a6dc453e1f1d7189.png"
+              />
+            </li>
+            <li>
+              ECC Domains #9563
+            </li>
+            <li>
+              9563
+            </li>
+            <li>
+              1
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <img
+                alt="15718 (ECC Domains #15718) image"
+                aria-hidden="true"
+                src="https://static.debank.com/image/op_nft/local_url/efdf606ec78afdf957b3fc140f5e2e1d/6f83347aaa85e14905ec43002368cf1a.png"
+              />
+            </li>
+            <li>
+              ECC Domains #15718
+            </li>
+            <li>
+              15718
+            </li>
+            <li>
+              1
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <img
+                alt="15721 (ECC Domains #15721) image"
+                aria-hidden="true"
+                src="https://static.debank.com/image/op_nft/local_url/c1a80204cf70fc1f580928d128b1dfb5/746994a5831b20cc0fe9a12a6ee1436c.png"
+              />
+            </li>
+            <li>
+              ECC Domains #15721
+            </li>
+            <li>
+              15721
+            </li>
+            <li>
+              1
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <img
+                alt="15724 (ECC Domains #15724) image"
+                aria-hidden="true"
+                src="https://static.debank.com/image/op_nft/local_url/fc6d2a287dd5297608301063b4329a45/43eb7dd135b5ea1ce2f7406a179a7c75.png"
+              />
+            </li>
+            <li>
+              ECC Domains #15724
+            </li>
+            <li>
+              15724
+            </li>
+            <li>
+              1
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <img
+                alt="15722 (ECC Domains #15722) image"
+                aria-hidden="true"
+                src="https://static.debank.com/image/op_nft/local_url/dcf8a91f509bd271b1c996cd6cd92e5f/242534a3604bb157dfef6c1577819fcd.png"
+              />
+            </li>
+            <li>
+              ECC Domains #15722
+            </li>
+            <li>
+              15722
+            </li>
+            <li>
+              1
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <img
+                alt="15720 (ECC Domains #15720) image"
+                aria-hidden="true"
+                src="https://static.debank.com/image/op_nft/local_url/c903c13e6a2eac96a3afa2384f93920c/ab929f13bd074f5c1c4e425b0c96a028.png"
+              />
+            </li>
+            <li>
+              ECC Domains #15720
+            </li>
+            <li>
+              15720
+            </li>
+            <li>
+              1
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <img
+                alt="15725 (ECC Domains #15725) image"
+                aria-hidden="true"
+                src="https://static.debank.com/image/op_nft/local_url/9a9c0cee751caacfad9caee1df6568f7/6dad32c6ad70cefc32ebd70486e49bd1.png"
+              />
+            </li>
+            <li>
+              ECC Domains #15725
+            </li>
+            <li>
+              15725
+            </li>
+            <li>
+              1
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <img
+                alt="15719 (ECC Domains #15719) image"
+                aria-hidden="true"
+                src="https://static.debank.com/image/op_nft/local_url/b8d165e3717898d6aa1c5d2a8fd4acaa/45bffac8b3234ee1e46ecb7e20b0c49d.png"
+              />
+            </li>
+            <li>
+              ECC Domains #15719
+            </li>
+            <li>
+              15719
+            </li>
+            <li>
+              1
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </body>,
+  "container": <div>
+    <ul>
+      <li>
+        <ul>
+          <li>
+            <img
+              alt="3856 (OptiChads #3856) image"
+              aria-hidden="true"
+              src="https://static.debank.com/image/op_nft/local_url/7be66446d630c52970e5af0a1f825790/13baef55f677a6f7bf846e54c0ad564c.png"
+            />
+          </li>
+          <li>
+            OptiChads #3856
+          </li>
+          <li>
+            3856
+          </li>
+          <li>
+            1
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <img
+              alt="69 (OptiChads #69) image"
+              aria-hidden="true"
+              src="https://static.debank.com/image/op_nft/local_url/cb0a1603c4e9610604280ef67135f326/bd13bbc0883acbee8bb5195e0b5783f8.png"
+            />
+          </li>
+          <li>
+            OptiChads #69
+          </li>
+          <li>
+            69
+          </li>
+          <li>
+            1
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <img
+              alt="5142 (ECC Domains #5142) image"
+              aria-hidden="true"
+              src="https://static.debank.com/image/op_nft/local_url/f80e4829cfdb162dbbec8de97dd69349/7aa68c9f7381a412de7df906aeff7c7f.png"
+            />
+          </li>
+          <li>
+            ECC Domains #5142
+          </li>
+          <li>
+            5142
+          </li>
+          <li>
+            1
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <img
+              alt="9563 (ECC Domains #9563) image"
+              aria-hidden="true"
+              src="https://static.debank.com/image/op_nft/local_url/aa54652fa254c55f7fdd70a9e3bf7863/1174db1796333d21a6dc453e1f1d7189.png"
+            />
+          </li>
+          <li>
+            ECC Domains #9563
+          </li>
+          <li>
+            9563
+          </li>
+          <li>
+            1
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <img
+              alt="15718 (ECC Domains #15718) image"
+              aria-hidden="true"
+              src="https://static.debank.com/image/op_nft/local_url/efdf606ec78afdf957b3fc140f5e2e1d/6f83347aaa85e14905ec43002368cf1a.png"
+            />
+          </li>
+          <li>
+            ECC Domains #15718
+          </li>
+          <li>
+            15718
+          </li>
+          <li>
+            1
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <img
+              alt="15721 (ECC Domains #15721) image"
+              aria-hidden="true"
+              src="https://static.debank.com/image/op_nft/local_url/c1a80204cf70fc1f580928d128b1dfb5/746994a5831b20cc0fe9a12a6ee1436c.png"
+            />
+          </li>
+          <li>
+            ECC Domains #15721
+          </li>
+          <li>
+            15721
+          </li>
+          <li>
+            1
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <img
+              alt="15724 (ECC Domains #15724) image"
+              aria-hidden="true"
+              src="https://static.debank.com/image/op_nft/local_url/fc6d2a287dd5297608301063b4329a45/43eb7dd135b5ea1ce2f7406a179a7c75.png"
+            />
+          </li>
+          <li>
+            ECC Domains #15724
+          </li>
+          <li>
+            15724
+          </li>
+          <li>
+            1
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <img
+              alt="15722 (ECC Domains #15722) image"
+              aria-hidden="true"
+              src="https://static.debank.com/image/op_nft/local_url/dcf8a91f509bd271b1c996cd6cd92e5f/242534a3604bb157dfef6c1577819fcd.png"
+            />
+          </li>
+          <li>
+            ECC Domains #15722
+          </li>
+          <li>
+            15722
+          </li>
+          <li>
+            1
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <img
+              alt="15720 (ECC Domains #15720) image"
+              aria-hidden="true"
+              src="https://static.debank.com/image/op_nft/local_url/c903c13e6a2eac96a3afa2384f93920c/ab929f13bd074f5c1c4e425b0c96a028.png"
+            />
+          </li>
+          <li>
+            ECC Domains #15720
+          </li>
+          <li>
+            15720
+          </li>
+          <li>
+            1
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <img
+              alt="15725 (ECC Domains #15725) image"
+              aria-hidden="true"
+              src="https://static.debank.com/image/op_nft/local_url/9a9c0cee751caacfad9caee1df6568f7/6dad32c6ad70cefc32ebd70486e49bd1.png"
+            />
+          </li>
+          <li>
+            ECC Domains #15725
+          </li>
+          <li>
+            15725
+          </li>
+          <li>
+            1
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <img
+              alt="15719 (ECC Domains #15719) image"
+              aria-hidden="true"
+              src="https://static.debank.com/image/op_nft/local_url/b8d165e3717898d6aa1c5d2a8fd4acaa/45bffac8b3234ee1e46ecb7e20b0c49d.png"
+            />
+          </li>
+          <li>
+            ECC Domains #15719
+          </li>
+          <li>
+            15719
+          </li>
+          <li>
+            1
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

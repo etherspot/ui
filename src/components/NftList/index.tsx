@@ -25,32 +25,41 @@ import React from 'react';
 import { EtherspotTransactionKit } from '@etherspot/transaction-kit';
 
 // Types
-import type { TokenSelectorProps } from '../../models/TokenSelector';
+import type { NftListProps } from '../../models/NftList';
 
 // Local
-import Dropdown from './DropDown';
+import Nfts from './NftList';
 
+// Required Props for the NftList component
 /**
- * @name TokenSelector
- * @description TokenSelector component provides a UI for list of tokens in dropdown.
-   Shows tokens as per chainId. @param onSelect to easily we can import multiple tokens. 
-   We can customize dropdown UI as per our expectation.
- * @param {TokenSelectorProps} props - The props for the component
- * @returns {React.ReactElement} The rendered component.
+ * @typedef {Object} NftListProps - Props for the NftList component.
+ * @property {number} chainId - The Ethereum chain ID.
+ * @property {ethers.Wallet} provider - The Ethereum provider.
+ * @property {string} dataApiKey - The data api key for data services.
+ * @property {string} bundlerApiKey - The bundler api key for bundler.
  */
 
-const TokenSelector = (props: TokenSelectorProps) => {
-  const { provider, chainId, dataApiKey, bundlerApiKey, ...rest } = props;
-
+/**
+ * @name NftList
+ * @description NftList component provides list of NFTs for either their own account,
+   or another account address that they can provide.
+   The Etherspot UI component will show a unordered list of NFTs and the data associated with the NFT.
+ * @param {NftListProps} props - The props for the component
+ * @returns {React.ReactElement} The rendered component.
+ */
+const NftList = (props: NftListProps) => {
+  const { provider, chainId, dataApiKey, bundlerApiKey } = props;
+  
   return (
     <EtherspotTransactionKit 
         provider={provider} 
         chainId={chainId} 
         dataApiKey={dataApiKey} 
-        bundlerApiKey={bundlerApiKey}>
-      <Dropdown {...rest} />
+        bundlerApiKey={bundlerApiKey}
+    >
+      <Nfts {...props} />
     </EtherspotTransactionKit>
   );
 };
 
-export default TokenSelector;
+export default NftList;
